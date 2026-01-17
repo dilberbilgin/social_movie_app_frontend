@@ -1,0 +1,61 @@
+{
+  "auth": {
+    "loginTitle": "Login to Club",
+    "registerTitle": "Join Us",
+    "username": "Username",
+    "email": "Email Address",
+    "password": "Password",
+    "loginBtn": "Login",
+    "signupBtn": "Create Account",
+    "errorGeneric": "An error occurred. Please try again.",
+    "noAccount": "Don't have an account?",
+    "signupNow": "Sign up now",
+    "alreadyHaveAccount": "Already have an account?",
+    "loginNow": "Login now"
+  },
+  "nav": {
+    "welcome": "Welcome",
+    "guest": "User",
+    "logout": "Logout",
+    "home": "Home",
+    "movies": "Movies",
+    "profile": "My Profile",
+    "login": "Login",
+    "register": "Register"
+  },
+  "home": {
+    "trendTitle": "Social Movie Club - Trending Movies",
+    "topRatedTitle": "Top Rated by Members"
+  },
+  "movie": {
+    "description": "OVERVIEW",
+    "ratings": "Movie Ratings",
+    "comments": "User Reviews",
+    "addCommentPlaceholder": "Write your thoughts about this movie...",
+    "sendComment": "Post Comment",
+    "tmdbScore": "TMDB Score",
+    "clubScore": "Club Score",
+    "votes": "votes",
+    "giveRating": "RATE THIS MOVIE",
+    "rateNow": "Rate Now",
+    "details": "View Details",
+    "detailsBtn": "View Details",
+    "releaseYear": "Release Year",
+    "director": "Director",
+    "yourScore": "Your Score",
+    "noRatingsYet": "No rated movies yet.",
+    "startExploring": "Start exploring movies",
+    "ratingCount": "total ratings"
+  },
+
+  "common": {
+    "loading": "Loading...",
+    "sending": "Sending...",
+    "areYouSure": "Are you sure you want to delete this rating?",
+    "delete": "Delete"
+  },
+  "profile": {
+    "myRatings": "My Rated Movies",
+    "stats": "My Statistics"
+  }
+}

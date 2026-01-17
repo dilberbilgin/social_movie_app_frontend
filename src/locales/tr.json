@@ -1,0 +1,59 @@
+{
+  "auth": {
+    "loginTitle": "Kulübe Giriş Yap",
+    "registerTitle": "Aramıza Katıl",
+    "username": "Kullanıcı Adı",
+    "email": "E-posta Adresi",
+    "password": "Şifre",
+    "loginBtn": "Giriş Yap",
+    "signupBtn": "Hesap Oluştur",
+    "errorGeneric": "Bir hata oluştu. Lütfen tekrar deneyin.",
+    "noAccount": "Henüz üye değil misin?",
+    "signupNow": "Hemen Kaydol",
+    "alreadyHaveAccount": "Zaten hesabın var mı?",
+    "loginNow": "Giriş yap"
+  },
+  "nav": {
+    "welcome": "Hoş geldin",
+    "guest": "Kullanıcı",
+    "logout": "Çıkış Yap",
+    "home": "Anasayfa",
+    "movies": "Filmler",
+    "profile": "Profilim",
+    "login": "Giriş",
+    "register": "Kayıt Ol"
+  },
+  "home": {
+    "trendTitle": "Social Movie Club - Trend Filmler",
+    "topRatedTitle": "Üyelerden En Yüksek Puan Alanlar"
+  },
+  "movie": {
+    "description": "ÖZET",
+    "comments": "Kullanıcı Yorumları",
+    "ratings": "Film Puanları",
+    "addCommentPlaceholder": "Film hakkındaki düşüncelerini yaz...",
+    "sendComment": "Yorum Yap",
+    "tmdbScore": "TMDB Puanı",
+    "clubScore": "Kulüp Puanı",
+    "votes": "Oy",
+    "giveRating": "FİLMİ PUANLA",
+    "rateNow": "Puan Ver",
+    "details": "Detayları Gör",
+    "detailsBtn": "Detaylari Gor",
+    "releaseYear": "Yayın Tarihi",
+    "director": "Yönetmen",
+    "yourScore": "Senin Puanın",
+    "noRatingsYet": "Henüz puanlanmış film yok.",
+    "startExploring": "Filmleri keşfetmeye başla",
+    "ratingCount": "toplam puanlama"
+  },
+  "profile": {
+    "myRatings": "Puanladığım Filmler",
+    "stats": "İstatistiklerim"
+  },
+  "common": {
+    "areYouSure": "Bu puanı silmek istediğinize emin misiniz?",
+    "delete": "Sil"
+  }
+  
+}
