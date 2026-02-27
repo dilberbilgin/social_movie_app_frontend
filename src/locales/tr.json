@@ -21,11 +21,21 @@
     "movies": "Filmler",
     "profile": "Profilim",
     "login": "Giriş",
-    "register": "Kayıt Ol"
+    "register": "Kayıt Ol",
+    "explore": "Keşfet"
   },
   "home": {
-    "trendTitle": "Social Movie Club - Trend Filmler",
-    "topRatedTitle": "Üyelerden En Yüksek Puan Alanlar"
+    "welcomeTitle": "MovieSocial'a Hoş Geldin!",
+    "welcomeSubtitle": "Arkadaşlarınla film deneyimini paylaş, yeni dünyalar keşfet.",
+    "trending": "Trend Filmler",
+    "topRated": "En Yüksek Puanlılar",
+    "socialFeedPlaceholder": "Sosyal Akış Çok Yakında!"
+  },
+  "explore": {
+    "search": "Film Ara",
+    "searchPlaceholder": "Film ismi yazın...",
+    "category": "Kategori",
+    "allGenres": "Tüm Türler"
   },
   "movie": {
     "description": "ÖZET",
@@ -38,6 +48,9 @@
     "votes": "Oy",
     "giveRating": "FİLMİ PUANLA",
     "rateNow": "Puan Ver",
+    "yourRating": "Senin Puanın",
+    "removeRating": "Puanı Kaldır",
+    "rateThis": "Puan Ver",
     "details": "Detayları Gör",
     "detailsBtn": "Detaylari Gor",
     "releaseYear": "Yayın Tarihi",
@@ -54,6 +67,12 @@
   "common": {
     "areYouSure": "Bu puanı silmek istediğinize emin misiniz?",
     "delete": "Sil"
-  }
+  },
+  "comment": {
+  "reply": "YANITLA",
+  "viewReplies": "Yanıtları gör",
+  "hideReplies": "Yanıtları gizle",
+  "replyingTo": "Yanıtlanan:"
+}
   
 }

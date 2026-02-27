@@ -50,10 +50,20 @@ export interface JwtResponse {
 
 // Auth Cevapları (Response)
 export interface UserResponse {
+  isFollowing?: boolean;
   id: string;
   username: string;
   email: string;
   role: string;
+}
+
+export interface PageResponse<T> {
+  content: T[];
+  totalPages: number;
+  totalElements: number;
+  last: boolean;
+  size: number;
+  number: number;
 }
 
 /** * MOVIE MODÜLÜ
@@ -75,6 +85,9 @@ export interface Movie {
   title: string;        // Çevrilmiş (Local) başlık
   description: string;  // Çevrilmiş (Local) açıklama
   genres: Genre[];
+  likeCount: number;
+  dislikeCount: number;
+  userReaction: boolean | null;
 }
 
 // 2. Film Oluşturma İsteği (MovieCreateRequest karşılığı)
@@ -103,6 +116,9 @@ export interface CommentResponse {
   username: string;
   createdDate: string; // LocalDateTime -> string
   replies: CommentResponse[]; // Kendi tipinden liste (Recursive)
+  likeCount: number;
+  dislikeCount: number;
+  userReaction: boolean | null;
 }
 
 export interface RatingRequest {
@@ -156,4 +172,31 @@ export interface TmdbSearchResponse {
   total_results: number; // Java'daki totalResults yerine total_results
   total_pages: number;   // Java'daki totalPages yerine total_pages
 }
+
+export interface ProfileResponse {
+  id: string;
+  username: string;
+  firstName?: string;
+  lastName?: string;
+  bio?: string;
+  profilePictureUrl?: string;
+  movieCount: number;
+  followerCount: number;
+  followingCount: number;
+  // recentRatings: RatingResponse[];
+  recentRatings: PageResponse<RatingResponse>; 
+  isFollowing: boolean;
+}
+
+export interface UserProfileUpdateRequest {
+  firstName?: string;
+  lastName?: string;
+  bio?: string;
+  profilePictureUrl?: string;
+}
+
+
+
+
+
 

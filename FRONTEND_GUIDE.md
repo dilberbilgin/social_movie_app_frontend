@@ -1,65 +1,62 @@
-🎬 Social Movie Club - Frontend Geliştirme Rehberi (V1.0)
-Bu rehber, projenin başlangıcından Auth ve i18n sistemlerinin kurulumuna kadar olan süreci ve mimari kararları belgeler.
+🎬 Social Movie Club - Frontend Geliştirme Rehberi (V1.1)
+Bu rehber, başlangıç kurulumundan itibaren Auth sistemi, çok dillilik (i18n), gelişmiş arama mekanizmaları ve film detay bileşenlerinin mimari kararlarını belgeler.
 
-1. Başlangıç ve Kurulum
-Proje, modern web standartlarını karşılamak amacıyla Next.js 14+ (App Router) mimarisi üzerine inşa edildi.
+1. Başlangıç ve Mimari Yaklaşım
+Proje, Next.js 14+ (App Router) mimarisi üzerine, backend ile tam senkronize ve SOLID prensiplerine sadık kalınarak inşa edilmiştir.
 
-Teknoloji Yığını: React, Next.js, TypeScript, Tailwind CSS.
+Teknoloji Yığını: React, Next.js, TypeScript, Tailwind CSS, Axios.
 
-Paket Yönetimi: npm kullanıldı.
+API İletişimi: services/api.ts içerisinde tanımlanan Axios interceptor yapısı ile tüm isteklere Authorization (Token) ve Accept-Language (Dil) header'ları otomatik eklenir.
 
-API İletişimi: axios kütüphanesi kuruldu (npm install axios).
+Hydration Kontrolü: Tarayıcı uyumsuzluklarını önlemek için layout.tsx içerisinde suppressHydrationWarning kullanılmıştır.
 
-Dosya Konumu: Proje, ana klasörün altında social-movie-frontend (veya senin isimlendirdiğin haliyle) ayrı bir dizinde durur. Backend projesinden bağımsız çalışır.
+2. Klasör Yapısı ve Sorumlulukların Dağılımı (SOLID)
+Proje yapısı, her birimin tek bir sorumluluğu olması (Single Responsibility) üzerine kurulmuştur:
 
-2. Klasör Yapısı ve Mimari
-SOLID prensiplerine uygun olarak sorumluluklar ayrıştırılmıştır:
+src/app/: Rotalar (Pages). Logic içermez, sadece bileşenleri birleştirir.
 
-src/app/: Sayfalar (Routes) ve Layout burada bulunur. Her klasör (örn: /login) bir URL'e karşılık gelir.
+src/components/movie/: Atomik bileşenler (Hero, Stats, Description). Her biri sadece veriyi görselleştirir.
 
-src/components/: Tekrar kullanılabilir arayüz parçaları (Navbar, MovieCard vb.).
+src/context/: Uygulamanın global durumu (Auth ve Language).
 
-src/context/: Uygulamanın "beyni" olan global durum yönetimi (Auth, Dil seçimi).
+src/services/: Backend ile konuşan tek katman.
 
-src/services/: API çağrılarının (Axios) toplandığı yer.
+src/hooks/: Veri çekme ve filtreleme mantığının (Logic) sayfalardan ayrıştırıldığı yer (Örn: useMovies).
 
-src/locales/: Dil çeviri dosyaları (JSON).
+3. Gelişmiş Sistemler ve Algoritmalar
+A. Çok Dillilik (i18n) & Dinamik Veri
+Backend'den gelen dile duyarlı veriler (film açıklamaları vb.) ile arayüzdeki statik metinler LanguageContext üzerinden yönetilir.
 
-src/types/: TypeScript interface tanımlamaları (Backend DTO karşılıkları).
+Mantık: Kullanıcı dil değiştirdiğinde useEffect tetiklenir ve tüm API çağrıları yeni dil parametresiyle (Header üzerinden) tekrarlanır.
 
-3. Önemli Sistemler ve Nasıl Kullanılırlar?
-A. Çok Dillilik (i18n) - LanguageContext
-Backend'deki messages.properties yapısını Frontend'de simüle ettik.
+B. Arama Algoritması ve Debounce Mekanizması
+Keşfet (/explore) sayfasında kullanıcı her harf yazdığında backend'e istek atılmasını engellemek için Debounce algoritması uygulanmıştır.
 
-Kullanım: Bir bileşende metin yazmak yerine const { t } = useTranslation(); hook'u çağrılır.
+Matematiksel Mantık: Kullanıcı yazmayı bıraktıktan sonra bir setTimeout (500ms) başlatılır. Eğer kullanıcı süre dolmadan yeni bir tuşa basarsa mevcut zamanlayıcı clearTimeout ile silinir ve süreç baştan başlar.
 
-Dikkat: t('auth.loginTitle') şeklinde çağrılan anahtar, locales/tr.json ve en.json dosyalarında mutlaka tanımlı olmalıdır.
+Fayda: Sunucu yükünü %80'e kadar azaltır ve akıcı bir kullanıcı deneyimi sunar.
 
-B. Kimlik Doğrulama - AuthContext
-Giriş yapan kullanıcının bilgisini tüm uygulamaya yayar.
+C. Dinamik Filtreleme (Specification Pattern)
+Keşfet sayfasındaki Tür (Genre) ve Başlık filtreleri, Backend'deki Specification yapısı ile konuşur.
 
-Mekanizma: Giriş başarılı olduğunda login(user, token) fonksiyonu çalışır; bu hem localStorage'ı günceller hem de username state'ini değiştirerek Navbar'ın anında güncellenmesini sağlar.
+Backend İlişkisi: movieService.searchMovies metodu, URL query parametrelerini (?title=...&genreId=...) oluşturur ve backend bu parametreleri dinamik sorguya dönüştürür.
 
-Güvenlik: API isteklerinde Token gönderimi services/api.ts içindeki Interceptor ile otomatikleştirilmiştir.
+4. Bileşen Ekosistemi ve Kullanım Amaçları
+Bileşen,Sayfa,Amacı
+MovieHero,Detay (/movies/[id]),Filmin dev posterini ve ana başlığını görselleştirir.
+MovieStats,Detay,IMDb ve Club puanlarını yan panelde özetler.
+RatingAction,Detay,İnteraktif puanlama paneli (1-10 arası).
+MovieRow,Ana Sayfa (/),Yatay kaydırılabilir (Horizontal Scroll) film şeritleri oluşturur.
+CommentSection,Detay,Kullanıcı yorumlarının listelendiği ve yazıldığı alan.
 
-4. Geliştirme Kuralları (Clean Code & Solid)
-Hardcoded Metin Yasak: Hiçbir .tsx dosyasına direkt "Giriş Yap" yazılmaz. Mutlaka i18n (t()) kullanılır.
+5. Geliştirme Kuralları (Clean Code)
+Hardcoded Yasak: Hiçbir metin doğrudan dosyaya yazılmaz, mutlaka locales/ üzerinden t() fonksiyonu ile çağrılır.
 
-İsimlendirme Uyumu: Backend'de metot ismi signup ise, Frontend servis katmanında da signup kullanılır. URL'ler (/register) kullanıcı dostu kalabilir.
+Prop Injection: Bileşenler veriyi kendi çekmez; veriyi üst sayfadan (Parent) prop olarak alır. Bu sayede aynı bileşen (örn: MovieCard) hem Keşfet'te hem de Profil'de kullanılabilir.
 
-Hydration Kontrolü: Tarayıcı eklentilerinin (ColorZilla vb.) HTML yapısını bozup hata verdirmemesi için layout.tsx içinde suppressHydrationWarning kullanılır.
+State Management: Login durumu AuthContext içindedir. Başarılı girişte hem localStorage güncellenir hem de Navbar anında reaksiyon verir.
 
-Z-Index & Layout: Navbar gibi her zaman üstte durması gereken elemanlar için z-50 ve sticky top-0 standartları uygulanır.
+6. Gelecek Planı (Next Steps)
+Rota 1: Sosyal Profil: Kullanıcının geçmiş aktivitelerini (puanlar ve yorumlar) listeleyeceği alan.
 
-5. Sorun Giderme (Troubleshooting)
-Görsel Bozulmalar: Eğer CSS çalışmıyorsa layout.tsx dosyasında import './globals.css' satırının en üstte olduğunu kontrol et.
-
-Login Oldum Ama İsim Gelmedi: AuthContext içindeki login fonksiyonunun tetiklendiğinden ve AuthProvider'ın layout.tsx'de her şeyi sarmaladığından emin ol.
-
-6. İleri Seviye Mimari: Custom Hooks & Component Atomic Design Proje büyüdükçe page.tsx dosyalarının şişmesini önlemek için şu strateji benimsenmiştir:
-
-Logic Isolation (Hooks): Veri çekme ve state yönetimi gibi mantıksal işlemler src/hooks/ altına taşınır (Örn: useMovieDetail). Sayfa sadece veriyi görselleştirir.
-
-Atomic Components: Büyük UI blokları (MovieHero, MovieStats) kendi bağımsız dosyalarına bölünür. Bu, Single Responsibility prensibini sağlar.
-
-Prop Injection: Bileşenler, veriyi doğrudan API'den çekmez; sayfadan (Parent) prop olarak alır. Bu, bileşenlerin test edilebilirliğini ve tekrar kullanılabilirliğini artırır.
+Rota 2: İzleme Listesi (Watchlist): "Daha sonra izle" mantığının CRUD işlemlerinin entegrasyonu.

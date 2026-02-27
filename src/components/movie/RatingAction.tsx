@@ -19,6 +19,7 @@ export default function RatingAction({
 //   const [score, setScore] = useState<number>(initialScore || 0);
   const [loading, setLoading] = useState(false);
   const [currentScore, setCurrentScore] = useState(initialScore || 0);
+  const [hoverScore, setHoverScore] = useState(0); // Mouse üzerindeyken hangi yıldızda?
 
   useEffect(() => {
   if (initialScore !== undefined) {
@@ -27,6 +28,7 @@ export default function RatingAction({
 }, [initialScore]);
 
   const handleRate = async (selectedScore: number) => {
+    if (loading) return; // Eğer zaten işlem yapılıyorsa, yeni bir istek gönderme
     setLoading(true);
     try {
       const res = await ratingService.rateMovie({
@@ -57,36 +59,95 @@ export default function RatingAction({
     }
   };
 
+
   return (
-    <div className="p-4 border-2 border-dashed border-yellow-600 rounded-lg bg-black/50">
-      <h3 className="text-yellow-500 font-bold mb-2 text-sm uppercase">
-        {t("movie.giveRating")}
-        DEBUG: Puanlama Test Paneli
+    <div className="flex flex-col items-center p-6 bg-gray-800/80 backdrop-blur-md rounded-3xl border border-gray-700 shadow-2xl">
+      <h3 className="text-gray-400 font-semibold mb-4 text-xs uppercase tracking-[0.2em]">
+        {currentScore > 0 ? t("movie.yourRating") : t("movie.rateThis")}
       </h3>
 
-      <div className="flex flex-wrap gap-4">
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-          <button
-            key={num}
-            onClick={() => handleRate(num)}
-            disabled={loading}
-            className={`w-10 h-10 rounded border font-bold transition-all ${
-              currentScore === num
-                ? "bg-yellow-500 text-black border-white"
-                : "bg-gray-800 text-2xl text-white border-gray-600 hover:bg-yellow-500"
-            } ${loading ? "opacity-50 cursor-not-allowed"  : ""}`}
-          >
-            {num}
-          </button>
-        ))}
+      {/* Yıldız Konteyner */}
+      <div className="flex items-center gap-1">
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => {
+          const isActive = (hoverScore || currentScore) >= num;
+          const isCurrent = currentScore >= num;
+
+          return (
+            <button
+              key={num}
+              onMouseEnter={() => setHoverScore(num)}
+              onMouseLeave={() => setHoverScore(0)}
+              onClick={() => handleRate(num)}
+              disabled={loading}
+              className="relative transition-all duration-200 transform hover:scale-125 focus:outline-none"
+            >
+              <span className={`text-2xl md:text-3xl ${
+                isActive 
+                  ? "text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.6)]" 
+                  : "text-gray-600"
+              } ${loading ? "animate-pulse" : ""}`}>
+                ★
+              </span>
+              
+              {/* Tooltip (Opsiyonel) */}
+              {hoverScore === num && (
+                <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-yellow-500 text-black text-[10px] font-bold px-2 py-1 rounded">
+                  {num}
+                </div>
+              )}
+            </button>
+          );
+        })}
       </div>
-      <p className="mt-2 text-xs text-gray-400">
-        {loading
-          ? "İşleniyor..."
-          : `Senin Puanın: ${currentScore > 0 ? currentScore : "Yok"}`}
-      </p>
+
+      <div className="mt-4 flex flex-col items-center gap-1">
+        <span className="text-2xl font-black text-white">
+          {hoverScore || currentScore || "?"}<span className="text-gray-500 text-sm">/10</span>
+        </span>
+        
+        {currentScore > 0 && !loading && (
+            <button 
+                onClick={() => handleRate(0)} // Opsiyonel: Puanı silme mantığı
+                className="text-[10px] text-gray-500 hover:text-red-400 underline underline-offset-4 transition-colors"
+            >
+                {t("movie.removeRating") || "Remove"}
+            </button>
+        )}
+      </div>
     </div>
   );
 }
+
+//   return (
+//     <div className="p-4 border-2 border-dashed border-yellow-600 rounded-lg bg-black/50">
+//       <h3 className="text-yellow-500 font-bold mb-2 text-sm uppercase">
+//         {t("movie.giveRating")}
+//         DEBUG: Puanlama Test Paneli
+//       </h3>
+
+//       <div className="flex flex-wrap gap-4">
+//         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+//           <button
+//             key={num}
+//             onClick={() => handleRate(num)}
+//             disabled={loading}
+//             className={`w-10 h-10 rounded border font-bold transition-all ${
+//               currentScore === num
+//                 ? "bg-yellow-500 text-black border-white"
+//                 : "bg-gray-800 text-2xl text-white border-gray-600 hover:bg-yellow-500"
+//             } ${loading ? "opacity-50 cursor-not-allowed"  : ""}`}
+//           >
+//             {num}
+//           </button>
+//         ))}
+//       </div>
+//       <p className="mt-2 text-xs text-gray-400">
+//         {loading
+//           ? "İşleniyor..."
+//           : `Senin Puanın: ${currentScore > 0 ? currentScore : "Yok"}`}
+//       </p>
+//     </div>
+//   );
+// }
 
 

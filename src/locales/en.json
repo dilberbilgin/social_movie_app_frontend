@@ -21,11 +21,23 @@
     "movies": "Movies",
     "profile": "My Profile",
     "login": "Login",
-    "register": "Register"
+    "register": "Register",
+    "explore": "Explore",
+    "searchUserPlaceholder": "Search users...",
+    "noResults": "No users found."
   },
   "home": {
-    "trendTitle": "Social Movie Club - Trending Movies",
-    "topRatedTitle": "Top Rated by Members"
+    "welcomeTitle": "Welcome to MovieSocial!",
+    "welcomeSubtitle": "Share your movie experience with friends, explore new worlds.",
+    "trending": "Trending Movies",
+    "topRated": "Top Rated Movies",
+    "socialFeedPlaceholder": "Social Feed Coming Soon!"
+  },
+  "explore": {
+    "search": "Search Movie",
+    "searchPlaceholder": "Type a movie title...",
+    "category": "Category",
+    "allGenres": "All Genres"
   },
   "movie": {
     "description": "OVERVIEW",
@@ -56,6 +68,20 @@
   },
   "profile": {
     "myRatings": "My Rated Movies",
-    "stats": "My Statistics"
+    "stats": "My Statistics",
+    "movies": "Movies",
+    "followers": "Followers",
+    "following": "Following",
+    "editProfile": "Edit Profile",
+    "noBioYet": "No biography yet.",
+    "recentActivity": "Recent Activity",
+    "follow": "Follow",
+    "unfollow": "Unfollow"
+  },
+  "comment": {
+    "reply": "REPLY",
+    "viewReplies": "View replies",
+    "hideReplies": "Hide replies",
+    "replyingTo": "Replying to"
   }
 }

@@ -1,12 +1,25 @@
 "use client";
 
 import { Movie } from "@/types";
+import { Heart, Skull } from "lucide-react";
+import { movieService } from "@/services/movieService";
 
 interface MovieHeroProps {
   movie: Movie;
+  onMovieUpdated: () => void; // Veriyi tazelemek için ekledik
 }
 
-export default function MovieHero({ movie }: { movie: Movie }) {
+export default function MovieHero({ movie, onMovieUpdated }: MovieHeroProps) {
+  const handleMovieReaction = async (isLike: boolean) => {
+    try {
+      if (isLike) await movieService.toggleLike(movie.id);
+      else await movieService.toggleDislike(movie.id);
+      onMovieUpdated();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div className="relative w-full h-80 bg-gray-950 overflow-hidden">
       {/* Arka plan atmosferi */}
@@ -47,6 +60,26 @@ export default function MovieHero({ movie }: { movie: Movie }) {
             </span>
           </div>
         </div>
+
+        {/* Film Like/Dislike */}
+          <div className="flex items-center gap-4">
+            <button 
+              onClick={() => handleMovieReaction(true)}
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-full border transition-all active:scale-110 ${movie.userReaction === true ? 'bg-red-500 border-red-500 text-white' : 'border-gray-700 text-gray-400 hover:border-white'}`}
+            >
+              <Heart size={18} fill={movie.userReaction === true ? "white" : "none"} />
+              <span className="font-bold">{movie.likeCount}</span>
+            </button>
+            <button 
+              onClick={() => handleMovieReaction(false)}
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-full border transition-all active:scale-110 ${movie.userReaction === false ? 'bg-blue-600 border-blue-600 text-white' : 'border-gray-700 text-gray-400 hover:border-white'}`}
+            >
+              <Skull size={18} />
+              <span className="font-bold">{movie.dislikeCount}</span>
+            </button>
+          </div>
+
+
       </div>
     </div>
   );
