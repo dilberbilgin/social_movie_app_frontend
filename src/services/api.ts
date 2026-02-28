@@ -2,7 +2,7 @@ import axios from 'axios';
 
 //  Backend bağlantı ayarları
 const api = axios.create({
-  baseURL: 'http://localhost:8080/api', // Spring Boot adresi
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api', // Spring Boot adresi
   headers: {
     'Content-Type': 'application/json',
   },
