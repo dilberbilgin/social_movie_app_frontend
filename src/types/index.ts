@@ -195,6 +195,44 @@ export interface UserProfileUpdateRequest {
   profilePictureUrl?: string;
 }
 
+export enum ActivityType {
+  MOVIE_LIKE = "MOVIE_LIKE",
+  MOVIE_RATE = "MOVIE_RATE",
+  COMMENT_CREATE = "COMMENT_CREATE",
+  COMMENT_LIKE = "COMMENT_LIKE",
+  FOLLOW_USER = "FOLLOW_USER",
+}
+
+export interface ActivityResponse {
+  id: string;
+  userId: string;
+  username: string;
+  userAvatar: string | null;
+  type: ActivityType;
+  targetId: string;
+  targetTitle: string;
+  targetImage: string | null;
+  content: string;
+  createdDate: string;
+}
+
+export enum NotificationType {
+  COMMENT_LIKE = "COMMENT_LIKE",
+  COMMENT_CREATE = "COMMENT_CREATE",
+  COMMENT_REPLY = "COMMENT_REPLY", // Yeni tipimiz
+  FOLLOW = "FOLLOW",
+}
+
+export interface NotificationResponse {
+  id: string;
+  actorUsername: string;
+  actorAvatar: string | null;
+  message: string;
+  type: NotificationType;
+  targetId: string;
+  isRead: boolean;
+  createdDate: string;
+}
 
 
 

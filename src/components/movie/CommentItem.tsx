@@ -344,7 +344,10 @@ export default function CommentItem({ comment, movieId, isReply = false, onComme
   };
 
   return (
-    <div className={`mt-4 ${isReply ? "ml-8 md:ml-12 border-l-2 border-gray-800 pl-4" : ""}`}>
+    
+    <div 
+    id={`comment-${comment.id}`} // Sayfa içi linkleme için bu ID kritik
+    className={`mt-4 ${isReply ? "ml-8 md:ml-12 border-l-2 border-gray-800 pl-4" : ""}`}>
       <div className="flex gap-3">
         <div className="w-9 h-9 rounded-full bg-gray-800 shrink-0 flex items-center justify-center border border-gray-700 text-sm">
           👤

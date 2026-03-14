@@ -31,6 +31,7 @@
     "welcomeSubtitle": "Share your movie experience with friends, explore new worlds.",
     "trending": "Trending Movies",
     "topRated": "Top Rated Movies",
+    "socialFeedTitle": "Social Feed",
     "socialFeedPlaceholder": "Social Feed Coming Soon!"
   },
   "explore": {
@@ -83,5 +84,13 @@
     "viewReplies": "View replies",
     "hideReplies": "Hide replies",
     "replyingTo": "Replying to"
-  }
+  },
+  "activity": {
+  "movie_like": "liked the movie \"{title}\"",
+    "comment_like": "liked the comment \"{title}\"",
+  "movie_rate": "rated \"{title}\"",
+  "comment_create": "commented on \"{title}\"",
+  "follow_user": "started following {title}",
+  "default": "performed an action"
+}
 }

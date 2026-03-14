@@ -6,6 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useTranslation } from "@/context/LanguageContext";
 import { UserResponse } from "@/types";
 import { userService } from "@/services/userService";
+import { NotificationPanel } from "./social/NotificationPanel";
 
 const Navbar = () => {
   // 1. Santrallere (Context) bağlanıyoruz
@@ -15,6 +16,7 @@ const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
 const [searchResults, setSearchResults] = useState<UserResponse[]>([]);
 const [isSearching, setIsSearching] = useState(false);
+
 
 useEffect(() => {
   if (searchQuery.length < 2) {
@@ -137,6 +139,8 @@ useEffect(() => {
             {isAuthenticated ? (
               // Giriş yapmış kullanıcı görünümü
               <>
+              {/* BİLDİRİM PANELİ BURAYA GELİYOR */}
+                <NotificationPanel />
                 <div className="flex flex-col items-end mr-2">
                   {" "}
                   {/* mr-2 ile Profile linkiyle arayı açtık */}

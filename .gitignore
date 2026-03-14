@@ -35,6 +35,7 @@ build/
 *.pem
 *.jks
 
+
 # 4. FRONTEND (Next.js / Testing / Production)
 .next/
 out/
