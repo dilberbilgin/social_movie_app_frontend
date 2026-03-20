@@ -230,6 +230,7 @@ export interface NotificationResponse {
   message: string;
   type: NotificationType;
   targetId: string;
+  subTargetId?: string;
   isRead: boolean;
   createdDate: string;
 }

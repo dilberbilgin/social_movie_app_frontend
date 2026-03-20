@@ -34,28 +34,25 @@ export const NotificationPanel = () => {
     if (!notif.isRead) await markRead(notif.id);
     setIsOpen(false);
 
-    // Bildirim tipine göre yönlendirme
     if (notif.type === "FOLLOW") {
       router.push(`/profile/${notif.actorUsername}`);
+      return;
+    }
+
+    // targetId her zaman Film ID'sidir
+    // subTargetId ise Yorum veya Reply ID'sidir
+    const baseUrl = `/movies/${notif.targetId}`;
+    const hash = notif.subTargetId ? `#comment-${notif.subTargetId}` : "";
+
+    const finalUrl = `${baseUrl}${hash}`;
+
+    // Eğer zaten aynı film sayfasındaysak sadece hash'i değiştir
+    if (pathname === baseUrl) {
+      window.location.hash = hash.replace("#", "");
     } else {
-      router.push(`/movies/${notif.targetId}`);
+      router.push(finalUrl);
     }
   };
-
-// const handleNotificationClick = async (notif: any) => {
-//   if (!notif.isRead) await markRead(notif.id);
-//   setIsOpen(false);
-
-//   if (notif.type === "FOLLOW") {
-//     router.push(`/profile/${notif.actorUsername}`);
-//   } else if (notif.type === "COMMENT_REPLY" || notif.type === "COMMENT_LIKE") {
-//     // Burada targetId Film ID'si olduğu için filme yönlendirir
-//     // İleride yoruma odaklanmak için URL sonuna # ekleyebiliriz
-//     router.push(`/movies/${notif.targetId}`);
-//   } else {
-//     router.push(`/movies/${notif.targetId}`);
-//   }
-// };
 
   return (
     <div className="relative" ref={panelRef}>
@@ -72,44 +69,58 @@ export const NotificationPanel = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 bg-gray-900 border border-gray-700 rounded-lg shadow-xl z-50 max-h-96 overflow-y-auto">
-          <div className="p-3 border-b border-gray-800 font-bold text-sm text-white">
+        <div
+          ref={panelRef}
+          style={{
+            maxHeight: "400px",
+            display: "flex",
+            flexDirection: "column",
+          }}
+          className="absolute right-0 mt-2 w-80 bg-gray-900 border border-gray-700 rounded-lg shadow-xl z-50"
+        >
+          <div className="p-3 border-b border-gray-800 font-bold text-sm text-white sticky top-0 bg-gray-900 z-10">
             Bildirimler
           </div>
-          {notifications.length > 0 ? (
-            notifications.map((n) => (
-              <div
-                key={n.id}
-                onClick={() => handleNotificationClick(n)}
-                className={`p-3 border-b border-gray-800 cursor-pointer hover:bg-gray-800 transition-colors ${!n.isRead ? "bg-yellow-500/5" : ""}`}
-              >
-                <div className="flex gap-2">
-                  <div className="w-8 h-8 rounded-full bg-gray-700 shrink-0">
-                    {n.actorAvatar && (
-                      <img src={n.actorAvatar} className="rounded-full" />
-                    )}
-                  </div>
-                  <div className="flex flex-col">
-                    <p className="text-xs text-gray-200">
-                      <span className="font-bold text-yellow-500">
-                        {n.actorUsername}
-                      </span>{" "}
-                      {n.message}
-                    </p>
-                    <span className="text-[10px] text-gray-500 mt-1">
-                      {formatDistanceToNow(new Date(n.createdDate), {
-                        addSuffix: true,
-                      })}
-                    </span>
+
+          <div
+            className="flex-1 overflow-y-auto"
+            style={{ minHeight: "0", overflowY: "auto" }}
+          >
+            {notifications.length > 0 ? (
+              notifications.map((n) => (
+                <div
+                  key={n.id}
+                  onClick={() => handleNotificationClick(n)}
+                  className={`p-3 border-b border-gray-800 cursor-pointer hover:bg-gray-800 transition-colors ${!n.isRead ? "bg-yellow-500/10 border-l-2 border-l-yellow-500" : ""}`}
+                >
+                  <div className="flex gap-2">
+                    <div className="w-8 h-8 rounded-full bg-gray-700 shrink-0">
+                      {n.actorAvatar && (
+                        <img src={n.actorAvatar} className="rounded-full" />
+                      )}
+                    </div>
+                    <div className="flex flex-col">
+                      <p className="text-xs text-gray-200">
+                        <span className="font-bold text-yellow-500">
+                          {n.actorUsername}
+                        </span>{" "}
+                        {n.message}
+                      </p>
+                      <span className="text-[10px] text-gray-500 mt-1">
+                        {formatDistanceToNow(new Date(n.createdDate), {
+                          addSuffix: true,
+                        })}
+                      </span>
+                    </div>
                   </div>
                 </div>
+              ))
+            ) : (
+              <div className="p-4 text-center text-xs text-gray-500 italic">
+                Henüz bildirim yok.
               </div>
-            ))
-          ) : (
-            <div className="p-4 text-center text-xs text-gray-500 italic">
-              Henüz bildirim yok.
-            </div>
-          )}
+            )}
+          </div>
         </div>
       )}
     </div>

@@ -18,20 +18,20 @@ export const useNotifications = () => {
 
     let isMounted = true;
 
-    // 1. Mevcut Bildirimleri Getir (REST)
-    const fetchInitialNotifications = async () => {
-      try {
+
+  const fetchInitialNotifications = async () => {
+  try {
     const res = await notificationService.getNotifications();
-    
-    // Backend Page dönüyorsa veriler res.data.content içindedir
-    // Eğer senin API yapın direkt listeyi sarmalıyorsa res.data yeterli olabilir
     const notificationList = res.data && (res.data as any).content
       ? (res.data as any).content
       : (Array.isArray(res.data) ? res.data : []);
       
     if (isMounted) {
       setNotifications(notificationList);
-      setUnreadCount(notificationList.filter((n: any) => !n.isRead).length);
+      // Backend'den gelen isRead durumuna göre sayıyı kesinleştir
+      //const unread = notificationList.filter((n: any) => n.isRead === false).length;
+      const unread = notificationList.filter((n: any) => n.isRead === false || n.isRead === "false").length;
+      setUnreadCount(unread);
     }
   } catch (err) {
     console.error("Fetch error:", err);
@@ -58,6 +58,8 @@ export const useNotifications = () => {
             if (message.body) {
     try {
       const newNotif: NotificationResponse = JSON.parse(message.body);
+      // Backend isRead göndermezse default false kabul et
+if (newNotif.isRead === undefined) newNotif.isRead = false;
       console.log("PARSED NOTIFICATION:", newNotif); // Bunu ekle
       
       if (isMounted) {
@@ -68,13 +70,6 @@ export const useNotifications = () => {
       console.error("JSON Parse Error in WebSocket:", err);
     }
   }
-        //   if (message.body) {
-        //     const newNotif: NotificationResponse = JSON.parse(message.body);
-        //     if (isMounted) {
-        //       setNotifications(prev => [newNotif, ...prev]);
-        //       setUnreadCount(prev => prev + 1);
-        //     }
-        //   }
         });
       },
       onStompError: (frame) => {
