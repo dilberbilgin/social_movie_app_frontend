@@ -57,13 +57,27 @@ export interface UserResponse {
   role: string;
 }
 
+// export interface PageResponse<T> {
+//   content: T[];
+//   totalPages: number;
+//   totalElements: number;
+//   last: boolean;
+//   size: number;
+//   number: number;
+// }
 export interface PageResponse<T> {
   content: T[];
-  totalPages: number;
   totalElements: number;
   last: boolean;
-  size: number;
-  number: number;
+  
+  // Hibrit Alanlar: Backend'den hangisi gelirse onu kullanacağız
+  pageNumber?: number; // Senin yeni CustomPageResponse'un
+  number?: number;     // Spring'in orijinal Page nesnesi
+  
+  pageSize?: number;   // Senin yeni CustomPageResponse'un
+  size?: number;       // Spring'in orijinal Page nesnesi
+  
+  totalPages?: number; // Orijinal Page'de var
 }
 
 /** * MOVIE MODÜLÜ
@@ -234,6 +248,8 @@ export interface NotificationResponse {
   isRead: boolean;
   createdDate: string;
 }
+
+
 
 
 
