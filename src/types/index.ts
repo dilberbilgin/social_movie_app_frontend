@@ -84,6 +84,7 @@ export interface PageResponse<T> {
  */
 // 1. Ekranda gösterilecek Film (MovieResponse karşılığı)
 export interface Movie {
+  commentCount: number;
   id: string;            // UUID
   tmdbId: number;
   originalTitle: string;
@@ -228,6 +229,10 @@ export interface ActivityResponse {
   targetImage: string | null;
   content: string;
   createdDate: string;
+  // Sosyal Alanlar 
+  likeCount: number;
+  commentCount: number;
+  userReaction: boolean | null;
 }
 
 export enum NotificationType {

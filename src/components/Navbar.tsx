@@ -14,37 +14,42 @@ const Navbar = () => {
   const { t, lang, changeLanguage } = useTranslation();
 
   const [searchQuery, setSearchQuery] = useState("");
-const [searchResults, setSearchResults] = useState<UserResponse[]>([]);
-const [isSearching, setIsSearching] = useState(false);
+  const [searchResults, setSearchResults] = useState<UserResponse[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
 
-
-useEffect(() => {
-  if (searchQuery.length < 2) {
-    setSearchResults([]);
-    return;
-  }
-
-  const delayDebounceFn = setTimeout(async () => {
-    setIsSearching(true);
-    try {
-      // const res = await userService.searchUsers(searchQuery, lang);
-      const res = await userService.searchUsers(searchQuery, lang, 0, 5); // Sadece en iyi 5 sonucu getir
-      if (res.success) {
-        setSearchResults(res.data.content || []);
-      }
-    } finally {
-      setIsSearching(false);
+  useEffect(() => {
+    if (searchQuery.length < 2) {
+      setSearchResults([]);
+      return;
     }
-  }, 500);
 
-  return () => clearTimeout(delayDebounceFn);
-}, [searchQuery, lang]);
+    const delayDebounceFn = setTimeout(async () => {
+      setIsSearching(true);
+      try {
+        // const res = await userService.searchUsers(searchQuery, lang);
+        const res = await userService.searchUsers(searchQuery, lang, 0, 5); // Sadece en iyi 5 sonucu getir
+        if (res.success) {
+          setSearchResults(res.data.content || []);
+        }
+      } finally {
+        setIsSearching(false);
+      }
+    }, 500);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchQuery, lang]);
 
   // 2. Dil seçeneklerini bir config olarak tutuyoruz (Geliştirilebilir yapı)
   const languages = [
     { code: "en", label: "English", flag: "🇺🇸" },
     { code: "tr", label: "Türkçe", flag: "🇹🇷" },
   ];
+  const handleLogoClick = (e: React.MouseEvent) => {
+  if (window.location.pathname === "/") {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+};
 
   return (
     <nav className="bg-gray-800 border-b border-gray-700 sticky top-0 z-50">
@@ -53,6 +58,7 @@ useEffect(() => {
         {/* LOGO VE SOL MENÜ */}
         <div className="flex items-center gap-8">
           <Link
+          onClick={handleLogoClick}
             href="/"
             className="text-2xl font-bold text-yellow-500 hover:text-yellow-400 transition-colors"
           >
@@ -65,7 +71,7 @@ useEffect(() => {
               href="/explore"
               className="text-gray-300 hover:text-yellow-500 font-medium transition-colors flex items-center gap-2"
             >
-              <span className="text-lg">🔍</span> {t('nav.explore')}
+              <span className="text-lg">🔍</span> {t("nav.explore")}
             </Link>
           </div>
         </div>
@@ -80,7 +86,7 @@ useEffect(() => {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={t('nav.searchUserPlaceholder') || "Search..."}
+              placeholder={t("nav.searchUserPlaceholder") || "Search..."}
               className="w-full bg-gray-900 text-white text-[12px] md:text-sm rounded-lg md:rounded-xl py-1.5 md:py-2 pl-8 md:pl-10 pr-2 border border-gray-700 focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none transition-all placeholder:text-gray-600"
             />
             {isSearching && (
@@ -93,26 +99,35 @@ useEffect(() => {
           {/* SONUÇLAR DROPDOWN */}
           {searchQuery.length >= 2 && (
             <div className="absolute top-full left-0 w-50 sm:w-full mt-2 bg-gray-900 border border-gray-700 rounded-lg md:rounded-xl shadow-2xl overflow-hidden z-100">
-              {searchResults.length > 0 ? (
-                searchResults.map((u) => (
-                  <Link
-                    key={u.id}
-                    href={`/profile/${u.username}`}
-                    onClick={() => { setSearchQuery(""); setSearchResults([]); }}
-                    className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-2 md:py-3 hover:bg-gray-800 transition-colors border-b border-gray-800 last:border-0"
-                  >
-                    <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-yellow-500/20 flex items-center justify-center text-[10px] md:text-xs border border-yellow-500/50 shrink-0">
-                      👤
+              {searchResults.length > 0
+                ? searchResults.map((u) => (
+                    <Link
+                      key={u.id}
+                      href={`/profile/${u.username}`}
+                      onClick={() => {
+                        setSearchQuery("");
+                        setSearchResults([]);
+                      }}
+                      className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-2 md:py-3 hover:bg-gray-800 transition-colors border-b border-gray-800 last:border-0"
+                    >
+                      <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-yellow-500/20 flex items-center justify-center text-[10px] md:text-xs border border-yellow-500/50 shrink-0">
+                        👤
+                      </div>
+                      <div className="flex flex-col overflow-hidden">
+                        <span className="text-xs md:text-sm font-bold text-white truncate">
+                          {u.username}
+                        </span>
+                        <span className="text-[8px] md:text-[10px] text-gray-500 uppercase">
+                          View Profile
+                        </span>
+                      </div>
+                    </Link>
+                  ))
+                : !isSearching && (
+                    <div className="p-3 text-center text-xs text-gray-500">
+                      No results.
                     </div>
-                    <div className="flex flex-col overflow-hidden">
-                      <span className="text-xs md:text-sm font-bold text-white truncate">{u.username}</span>
-                      <span className="text-[8px] md:text-[10px] text-gray-500 uppercase">View Profile</span>
-                    </div>
-                  </Link>
-                ))
-              ) : (
-                !isSearching && <div className="p-3 text-center text-xs text-gray-500">No results.</div>
-              )}
+                  )}
             </div>
           )}
         </div>
@@ -139,7 +154,7 @@ useEffect(() => {
             {isAuthenticated ? (
               // Giriş yapmış kullanıcı görünümü
               <>
-              {/* BİLDİRİM PANELİ BURAYA GELİYOR */}
+                {/* BİLDİRİM PANELİ BURAYA GELİYOR */}
                 <NotificationPanel />
                 <div className="flex flex-col items-end mr-2">
                   {" "}
@@ -149,7 +164,6 @@ useEffect(() => {
                     <span className="text-yellow-500 font-bold ml-1">
                       {/* Öncelik: Backend'den gelen isim | Yedek: Çeviri dosyasındaki misafir tanımı */}
                       {user?.username || t("nav.guest")}
-                      
                     </span>
                   </span>
                   <Link
