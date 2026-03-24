@@ -3,6 +3,7 @@ import { Client } from '@stomp/stompjs';
 import { NotificationResponse } from '@/types';
 import { notificationService } from '@/services/notificationService';
 import { useAuth } from '@/context/AuthContext';
+import { toast } from 'react-hot-toast';
 
 export const useNotifications = () => {
   const { user, isAuthenticated } = useAuth(); // Parametre yerine context'ten alıyoruz
@@ -43,7 +44,8 @@ export const useNotifications = () => {
     // 2. WebSocket Bağlantısı (STOMP)
     const client = new Client({
       // Backend SecurityConfig'deki "/ws-notifications" ile aynı olmalı
-      brokerURL: 'ws://localhost:8080/ws-notifications', 
+      // brokerURL: 'ws://localhost:8080/ws-notifications', 
+      brokerURL: `${process.env.NEXT_PUBLIC_API_URL?.replace('http', 'ws')}/ws-notifications`,
   connectHeaders: {
     Authorization: token.startsWith('Bearer ') ? token : `Bearer ${token}`,
   },
@@ -65,6 +67,13 @@ if (newNotif.isRead === undefined) newNotif.isRead = false;
       if (isMounted) {
         setNotifications(prev => [newNotif, ...prev]);
         setUnreadCount(prev => prev + 1);
+
+        // Kullanıcıya o an ekranda bir popup gösteriyoruz
+    toast.success(newNotif.message, {
+        icon: '🔔',
+        duration: 4000,
+        position: 'top-right',
+    });
       }
     } catch (err) {
       console.error("JSON Parse Error in WebSocket:", err);

@@ -70,14 +70,23 @@ export const SocialFeed = () => {
       </div>
     );
 
-  if (activities.length === 0)
-    return (
-      <div className="p-10 text-center bg-gray-900/30 rounded-3xl border border-gray-800">
-        <p className="text-gray-500 italic">
-          No activity yet. Follow some friends to see what they're watching!
-        </p>
-      </div>
-    );
+  // if (activities.length === 0)
+  //   return (
+  //     <div className="p-10 text-center bg-gray-900/30 rounded-3xl border border-gray-800">
+  //       <p className="text-gray-500 italic">
+  //         No activity yet. Follow some friends to see what they're watching!
+  //       </p>
+  //     </div>
+  //   );
+  // activities null olsa bile patlamaz, false döner
+if (!activities || activities.length === 0) 
+  return (
+    <div className="p-10 text-center bg-gray-900/30 rounded-3xl border border-gray-800">
+      <p className="text-gray-500 italic">
+        No activity yet. Follow some friends to see what they're watching!
+      </p>
+    </div>
+  );
 
     return (
   <div className="max-w-md mx-auto w-full px-2 sm:px-0 pb-10"> {/* max-w-lg'den md'ye (448px) çektik */}
