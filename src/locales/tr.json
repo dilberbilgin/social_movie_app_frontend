@@ -63,33 +63,32 @@
   },
   "profile": {
     "myRatings": "Puanladığım Filmler",
-  "stats": "İstatistiklerim",
-  "movies": "Filmler",
-  "followers": "Takipçiler",
-  "following": "Takip Edilenler",
-  "editProfile": "Profili Düzenle",
-  "noBioYet": "Henüz bir biyografi eklenmemiş.",
-  "recentActivity": "Son Aktiviteler",
-  "follow": "Takip Et",
-  "unfollow": "Takibi Bırak"
+    "stats": "İstatistiklerim",
+    "movies": "Filmler",
+    "followers": "Takipçiler",
+    "following": "Takip Edilenler",
+    "editProfile": "Profili Düzenle",
+    "noBioYet": "Henüz bir biyografi eklenmemiş.",
+    "recentActivity": "Son Aktiviteler",
+    "follow": "Takip Et",
+    "unfollow": "Takibi Bırak"
   },
   "common": {
     "areYouSure": "Bu puanı silmek istediğinize emin misiniz?",
     "delete": "Sil"
   },
   "comment": {
-  "reply": "YANITLA",
-  "viewReplies": "Yanıtları gör",
-  "hideReplies": "Yanıtları gizle",
-  "replyingTo": "Yanıtlanan:"
-},
-"activity": {
-  "movie_like": "\"{title}\" filmini beğendi",
-  "comment_like": "\"{title}\" yorumunu beğendi",
-  "movie_rate": "\"{title}\" filmini puanladı",
-  "comment_create": "\"{title}\" filmine yorum yaptı",
-  "follow_user": "{title} adlı kullanıcıyı takip etmeye başladı",
-  "default": "bir işlem gerçekleştirdi"
-}
-  
+    "reply": "YANITLA",
+    "viewReplies": "Yanıtları gör",
+    "hideReplies": "Yanıtları gizle",
+    "replyingTo": "Yanıtlanan:"
+  },
+  "activity": {
+    "movie_like": "\"{title}\" filmini beğendi",
+    "comment_like": "\"{title}\" yorumunu beğendi",
+    "movie_rate": "\"{title}\" filmini puanladı",
+    "comment_create": "\"{title}\" filmine yorum yaptı",
+    "follow_user": "{title} adlı kullanıcıyı takip etmeye başladı",
+    "default": "bir işlem gerçekleştirdi"
+  }
 }

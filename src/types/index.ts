@@ -201,6 +201,7 @@ export interface ProfileResponse {
   // recentRatings: RatingResponse[];
   recentRatings: PageResponse<RatingResponse>; 
   isFollowing: boolean;
+  recentActivities: PageResponse<ActivityResponse>;
 }
 
 export interface UserProfileUpdateRequest {

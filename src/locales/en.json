@@ -51,6 +51,8 @@
     "votes": "votes",
     "giveRating": "RATE THIS MOVIE",
     "rateNow": "Rate Now",
+    "yourRating": "Your Rating",
+    "removeRating": "Remove Rating",
     "details": "View Details",
     "detailsBtn": "View Details",
     "releaseYear": "Release Year",

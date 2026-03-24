@@ -5,13 +5,27 @@ import { formatDistanceToNow } from "date-fns";
 import Link from "next/link";
 import { useTranslation } from "@/context/LanguageContext";
 import { FeedActions } from "./FeedActions";
+import { enUS, tr } from "date-fns/locale";
 
 interface Props {
   activity: ActivityResponse;
+  compact?: boolean;
 }
 
-export const ActivityCard = ({ activity }: Props) => {
-  const { t } = useTranslation();
+// export const ActivityCard = ({ activity }: Props) => {
+//   const { t } = useTranslation();
+export const ActivityCard = ({ activity, compact = false }: Props) => {
+  const { lang, t } = useTranslation();
+  const dateLocale = lang === "tr" ? tr : enUS;
+
+  // TMDB Resim URL'sini düzelten fonksiyon
+  const getImageUrl = (path: string | null) => {
+    if (!path || path === "null" || path === "") return "/no-poster.png";
+    if (path.startsWith("http")) return path;
+    // Baştaki slash'ı kontrol ederek TMDB URL'ini oluştur
+    const cleanPath = path.startsWith("/") ? path : `/${path}`;
+    return `https://image.tmdb.org/t/p/w500${cleanPath}`;
+  };
 
   const getTargetLink = () => {
     if (activity.type === "FOLLOW_USER") return `/profile/${activity.targetId}`;
@@ -21,6 +35,46 @@ export const ActivityCard = ({ activity }: Props) => {
   const isFollowAction = activity.type === "FOLLOW_USER";
   const isMovieAction = activity.type === "MOVIE_LIKE" || activity.type === "MOVIE_RATE";
 
+  if (compact) {
+    return (
+      <Link 
+        href={`/movies/${activity.targetId}`}
+        className="flex items-center gap-4 p-2 bg-gray-900/60 rounded-xl border border-gray-800 hover:border-yellow-500 hover:bg-gray-800/40 transition-all group h-28"
+      >
+        {/* Resim Alanı: Tam olarak ana sayfa film kartı oranında (2/3) */}
+        <div className="relative w-16 h-full shrink-0 overflow-hidden rounded-lg border border-gray-700">
+          <img
+            src={getImageUrl(activity.targetImage)}
+            alt={activity.targetTitle || "Movie"} 
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            onError={(e) => { (e.target as HTMLImageElement).src = "/no-poster.png"; }}
+          />
+        </div>
+
+        {/* Metin Alanı */}
+        <div className="flex-1 min-w-0 pr-2 flex flex-col justify-center">
+          <div className="flex justify-between items-start mb-1">
+            <h4 className="text-white font-semibold truncate text-sm leading-tight group-hover:text-yellow-500 transition-colors">
+              {activity.targetTitle || (activity.type === "MOVIE_RATE" ? t("common.movie") : "Movie")}
+            </h4>
+          </div>
+          
+          <div className="flex items-center gap-2 mb-1">
+             <span className="text-[9px] px-1.5 py-0.5 rounded bg-yellow-500/20 text-yellow-500 font-bold uppercase tracking-wider border border-yellow-500/30">
+                {activity.type === "MOVIE_RATE" ? "RATE" : "COMMENT"}
+             </span>
+             <span className="text-[10px] text-gray-500 italic">
+              {formatDistanceToNow(new Date(activity.createdDate), { addSuffix: true, locale: dateLocale })}
+            </span>
+          </div>
+
+          <p className="text-gray-400 text-xs line-clamp-2 leading-snug italic">
+            "{activity.content}"
+          </p>
+        </div>
+      </Link>
+    );
+  }
   return (
     <div className="bg-gray-900/40 rounded-2xl border border-gray-800 mb-6 overflow-hidden hover:border-gray-700 transition-colors">
       {/* 1. ÜST KISIM: Kullanıcı Bilgisi */}
@@ -103,3 +157,6 @@ export const ActivityCard = ({ activity }: Props) => {
     </div>
   );
 };
+
+
+
