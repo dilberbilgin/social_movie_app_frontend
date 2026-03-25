@@ -1,10 +1,39 @@
+// import './globals.css';
+// import Navbar from '@/components/Navbar';
+// import { AuthProvider } from '@/context/AuthContext';
+// import { LanguageProvider } from '@/context/LanguageContext';
+
+
+// export default function RootLayout({ children }: { children: React.ReactNode }) {
+//   return (
+//     <html lang="en">
+//       <body className="bg-gray-900 text-white antialiased" suppressHydrationWarning>
+//         <LanguageProvider>
+//           <AuthProvider>
+//             <Navbar />
+//             <div className="container mx-auto px-4"> 
+//             {children}
+//             </div>
+//           </AuthProvider>
+//         </LanguageProvider>
+//       </body>
+//     </html>
+//   );
+// } 
+
+// src/app/layout.tsx
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import { AuthProvider } from '@/context/AuthContext';
 import { LanguageProvider } from '@/context/LanguageContext';
 
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ 
+  children,
+  modal // @modal slot'u buraya gelir
+}: { 
+  children: React.ReactNode;
+  modal: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body className="bg-gray-900 text-white antialiased" suppressHydrationWarning>
@@ -12,8 +41,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <AuthProvider>
             <Navbar />
             <div className="container mx-auto px-4"> 
-            {children}
+              {children}
             </div>
+            {modal} {/* Modal slotunu buraya ekledik */}
+            <div id="modal-root" /> {/* İleride portal gerekirse diye */}
           </AuthProvider>
         </LanguageProvider>
       </body>
