@@ -15,27 +15,31 @@ export default function MovieCard({ movie: initialMovie }: { movie: Movie }) {
   }, [initialMovie]);
 
   const handleLike = async (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (isLiking) return;
-    try {
-      setIsLiking(true);
-      await movieService.toggleLike(movie.id);
-      // Optimistic UI update
-      setMovie(prev => ({
-        ...prev,
-        likeCount: prev.userReaction === true ? prev.likeCount - 1 : prev.likeCount + 1,
-        userReaction: prev.userReaction === true ? null : true
-      }));
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setIsLiking(false);
-    }
-  };
+  e.preventDefault();
+  e.stopPropagation();
+  if (isLiking) return;
+  try {
+    setIsLiking(true);
+    
+    // KRİTİK DÜZELTME: Hem id hem de tmdbId gönderiyoruz
+    const response = await movieService.toggleLike(movie.id, movie.tmdbId); 
+    
+    setMovie(prev => ({
+      ...prev,
+      // Eğer backend'den yeni id gelmişse onu set et, yoksa mevcut kalsın
+  id: response.data || prev.id,
+      likeCount: prev.userReaction === true ? prev.likeCount - 1 : prev.likeCount + 1,
+      userReaction: prev.userReaction === true ? null : true
+    }));
+  } catch (err) {
+    console.error("Like error:", err);
+  } finally {
+    setIsLiking(false);
+  }
+};
 
   return (
-    <Link href={`/movies/${movie.id}`} className="group block w-full">
+    <Link href={`/movies/${movie.id}?tmdbId=${movie.tmdbId}`} className="group block w-full">
       <div className="aspect-2/3 relative rounded-2xl overflow-hidden border border-gray-800 group-hover:border-yellow-500/50 transition-all shadow-xl">
         
         {/* Poster Resmi */}
@@ -51,7 +55,7 @@ export default function MovieCard({ movie: initialMovie }: { movie: Movie }) {
           {/* Puan (Sol) */}
           <div className="flex items-center gap-1 bg-black/40 px-2.5 py-1.5 rounded-full backdrop-blur-md border border-white/5">
             <span className="text-yellow-500 font-bold text-sm flex items-center gap-1 leading-none">
-              <span className="text-[10px]">⭐</span> {movie.clubRating.toFixed(1)}
+              <span className="text-[10px]">⭐</span> {(movie.clubRating ?? 0).toFixed(1)}
             </span>
           </div>
 

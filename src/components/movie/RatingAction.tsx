@@ -27,37 +27,69 @@ export default function RatingAction({
   }
 }, [initialScore]);
 
-  const handleRate = async (selectedScore: number) => {
-    if (loading) return; // Eğer zaten işlem yapılıyorsa, yeni bir istek gönderme
-    setLoading(true);
-    try {
-      const res = await ratingService.rateMovie({
-        movieId: movieId,
-        score: selectedScore,
-      });
+  // const handleRate = async (selectedScore: number) => {
+  //   if (loading) return; // Eğer zaten işlem yapılıyorsa, yeni bir istek gönderme
+  //   setLoading(true);
+  //   try {
+  //     const res = await ratingService.rateMovie({
+  //       movieId: movieId,
+  //       score: selectedScore,
+  //     });
 
-      if (res.success) {
-        setCurrentScore(selectedScore);
+  //     if (res.success) {
+  //       setCurrentScore(selectedScore);
 
-        // Backend'den gelen yeni ortalamayı sayfaya (parent) gönderiyoruz
-        if (
-          res.data.newClubRating !== undefined &&
-          res.data.newClubVoteCount !== undefined
-        ) {
-          onRatingSuccess(res.data.newClubRating, res.data.newClubVoteCount);
-        }
-        // Burada backend'den dönen veriye göre üst bileşendeki (Page)
-        // film ortalamasını güncellemek için bir callback tetikleyebiliriz.
-        // Şimdilik sadece başarılı mesajı veriyoruz.
-        alert(res.message);
-        console.log("İşlem Başarılı:", res.message);
+  //       // Backend'den gelen yeni ortalamayı sayfaya (parent) gönderiyoruz
+  //       if (
+  //         res.data.newClubRating !== undefined &&
+  //         res.data.newClubVoteCount !== undefined
+  //       ) {
+  //         onRatingSuccess(res.data.newClubRating, res.data.newClubVoteCount);
+  //       }
+  //       // Burada backend'den dönen veriye göre üst bileşendeki (Page)
+  //       // film ortalamasını güncellemek için bir callback tetikleyebiliriz.
+  //       // Şimdilik sadece başarılı mesajı veriyoruz.
+  //       alert(res.message);
+  //       console.log("İşlem Başarılı:", res.message);
+  //     }
+  //   } catch (err) {
+  //     console.error("Rating error", err);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+  // RatingAction.tsx içinde (tahmini yapı)
+const handleRate = async (selectedScore: number) => {
+  if (loading) return;
+  setLoading(true);
+
+  try {
+    // URL'den tmdbId'yi alıyoruz (Eğer sayfa yenilenirse veya direkt linkle gelinirse diye)
+    const searchParams = new URLSearchParams(window.location.search);
+    const tmdbIdParam = searchParams.get('tmdbId');
+
+    const res = await ratingService.rateMovie({
+      movieId: movieId, // Prop'tan gelen ID
+      tmdbId: tmdbIdParam ? Number(tmdbIdParam) : undefined,
+      score: selectedScore
+    });
+
+    if (res.success) {
+      setCurrentScore(selectedScore);
+      
+      // Başarı durumunda Parent (MovieDetailContent) bileşenindeki istatistikleri güncelle
+      if (res.data.newClubRating !== undefined && res.data.newClubVoteCount !== undefined) {
+        onRatingSuccess(res.data.newClubRating, res.data.newClubVoteCount);
       }
-    } catch (err) {
-      console.error("Rating error", err);
-    } finally {
-      setLoading(false);
+      
+      console.log("Rating success:", res.message);
     }
-  };
+  } catch (err) {
+    console.error("Rating error", err);
+  } finally {
+    setLoading(false);
+  }
+};
 
 
   return (

@@ -7,6 +7,7 @@ import MovieHero from "@/components/movie/MovieHero";
 import MovieStats from "@/components/movie/MovieStats";
 import CommentSection from "@/components/movie/CommentSection";
 import RatingAction from "@/components/movie/RatingAction";
+import LanguageSelector from "@/components/ui/LanguageSelector";
 
 export default function MovieDetailContent({ id }: { id: string }) {
   const { t } = useTranslation();
@@ -23,7 +24,8 @@ export default function MovieDetailContent({ id }: { id: string }) {
   if (error || !movie) return <div className="p-20 text-center text-red-500">Not Found</div>;
 
   return (
-    <div className="w-full">
+    <div className="w-full relative">
+      
       <MovieHero movie={movie} onMovieUpdated={fetchAllData} />
       <div className="max-w-6xl mx-auto px-4 mt-12 grid grid-cols-1 lg:grid-cols-3 gap-10 pb-10">
         <div className="lg:col-span-2 space-y-10">

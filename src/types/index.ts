@@ -137,7 +137,8 @@ export interface CommentResponse {
 }
 
 export interface RatingRequest {
-  movieId: string;
+  movieId: string; // Bizim ürettiğimiz UUID (sanal veya gerçek)
+  tmdbId?: number; // EĞER film TMDB'den geliyorsa bu dolu olmalı
   score: number; // 1-10 arası
 }
 

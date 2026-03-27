@@ -25,9 +25,17 @@ export const movieService = {
     return response.data;
   },
 
-  // Film detayını getiren servis fonksiyonu
-  getMovieDetail: async (id: string): Promise<RestResponse<Movie>> => {
-    const response = await api.get<RestResponse<Movie>>(`/movies/${id}`);
+  // // Film detayını getiren servis fonksiyonu
+  // getMovieDetail: async (id: string): Promise<RestResponse<Movie>> => {
+  //   const response = await api.get<RestResponse<Movie>>(`/movies/${id}`);
+  //   return response.data;
+  // },
+
+// 1. Film detayını çekerken tmdbId desteği
+  getMovieDetail: async (id: string, tmdbId?: number): Promise<RestResponse<Movie>> => {
+    const response = await api.get<RestResponse<Movie>>(`/movies/${id}`, {
+      params: { tmdbId } // Backend'deki @RequestParam(required = false) Long tmdbId ile eşleşir
+    });
     return response.data;
   },
 
@@ -79,14 +87,43 @@ export const movieService = {
     return response.data;
   },
 
-  toggleLike: async (id: string): Promise<RestResponse<void>> => {
-    const response = await api.post<RestResponse<void>>(`/movies/${id}/like`);
-    return response.data;
-  },
-  toggleDislike: async (id: string): Promise<RestResponse<void>> => {
-    const response = await api.post<RestResponse<void>>(`/movies/${id}/dislike`);
-    return response.data;
-  },
+  // toggleLike: async (id: string): Promise<RestResponse<void>> => {
+  //   const response = await api.post<RestResponse<void>>(`/movies/${id}/like`);
+  //   return response.data;
+  // },
+
+// 2. Like/Dislike için tmdbId desteği
+  // toggleLike: async (id: string, tmdbId?: number): Promise<RestResponse<void>> => {
+  //   const response = await api.post<RestResponse<void>>(`/movies/${id}/like`, null, {
+  //     params: { tmdbId } // Query param olarak gönderiyoruz: /like?tmdbId=123
+  //   });
+  //   return response.data;
+  // },
+toggleLike: async (id: string | null, tmdbId?: number): Promise<RestResponse<string>> => {
+  const response = await api.post<RestResponse<string>>(`/movies/${id}/like`, null, {
+    params: { tmdbId }
+  });
+  return response.data;
+},
+
+
+  // toggleDislike: async (id: string): Promise<RestResponse<void>> => {
+  //   const response = await api.post<RestResponse<void>>(`/movies/${id}/dislike`);
+  //   return response.data;
+  // },
+
+//  toggleDislike: async (id: string, tmdbId?: number): Promise<RestResponse<void>> => {
+//     const response = await api.post<RestResponse<void>>(`/movies/${id}/dislike`, null, {
+//       params: { tmdbId }
+//     });
+//     return response.data;
+//   },
+toggleDislike: async (id: string | null, tmdbId?: number): Promise<RestResponse<string>> => {
+  const response = await api.post<RestResponse<string>>(`/movies/${id}/dislike`, null, {
+    params: { tmdbId }
+  });
+  return response.data;
+},
 
   //Hibrit Discover Metodu
   discoverMovies: async (filters?: { genreId?: string }, page: number = 0, size: number = 20): Promise<RestResponse<PageResponse<Movie>>> => {
@@ -101,8 +138,14 @@ export const movieService = {
   importTmdbMovie: async (tmdbId: number): Promise<RestResponse<Movie>> => {
     const response = await api.post<RestResponse<Movie>>(`/tmdb/import/${tmdbId}`);
     return response.data;
-  }
-
+  },
+  
+  getSuggestedMovies: async (page: number = 0, size: number = 10): Promise<RestResponse<PageResponse<Movie>>> => {
+    const response = await api.get<RestResponse<PageResponse<Movie>>>('/movies/suggestions', {
+      params: { page, size }
+    });
+    return response.data;
+  },
   
 };
 
