@@ -81,10 +81,11 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Home, Search, Compass, LogOut, LogIn, Bell } from "lucide-react"; 
 import { useAuth } from "@/context/AuthContext";
-import { useNotifications } from "@/hooks/useNotifications";
+// import { useNotifications } from "@/hooks/useNotifications";
 import SearchModal from "./ui/SearchModal"; 
 import LanguageSelector from "./ui/LanguageSelector";
 import { NotificationPanel } from "./social/NotificationPanel";
+import { useNotifications } from "@/context/NotificationContext"
 
 export default function Sidebar() {
   const pathname = usePathname();

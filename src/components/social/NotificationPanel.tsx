@@ -131,7 +131,8 @@
 "use client";
 
 import React from "react";
-import { useNotifications } from "@/hooks/useNotifications";
+// import { useNotifications } from "@/hooks/useNotifications";
+import { useNotifications } from "@/context/NotificationContext"
 import { formatDistanceToNow } from "date-fns";
 import { tr, enUS } from "date-fns/locale";
 import { useRouter, usePathname } from "next/navigation";
