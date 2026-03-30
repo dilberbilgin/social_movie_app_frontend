@@ -256,6 +256,21 @@ export interface NotificationResponse {
   createdDate: string;
 }
 
+export interface SearchResultDto {
+    id: string;
+    title: string;
+    subTitle: string;
+    imageUrl: string | null;
+    type: "MOVIE" | "USER" | "GROUP" | "HASHTAG";
+    metadata?: Record<string, any>;
+}
+
+export interface GlobalSearchResponse {
+    movies: SearchResultDto[];
+    users: SearchResultDto[];
+    topResults: SearchResultDto[];
+}
+
 
 
 

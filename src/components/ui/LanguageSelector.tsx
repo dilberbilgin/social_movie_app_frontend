@@ -6,6 +6,7 @@ import { useTranslation } from "@/context/LanguageContext";
 
 interface LanguageSelectorProps {
   dropdownPosition?: "top" | "bottom";
+  hideText?: boolean;
   align?: "left" | "right"; // <-- YENİ: Hizalama yönü
   showLabel?: boolean;
   isFullWidth?: boolean;
@@ -13,6 +14,7 @@ interface LanguageSelectorProps {
 
 export default function LanguageSelector({ 
   dropdownPosition = "bottom", 
+  hideText = false,
   align = "left", // Varsayılan soldan sağa
   showLabel = true,
   isFullWidth = true 
