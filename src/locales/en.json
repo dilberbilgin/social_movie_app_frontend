@@ -60,7 +60,9 @@
     "yourScore": "Your Score",
     "noRatingsYet": "No rated movies yet.",
     "startExploring": "Start exploring movies",
-    "ratingCount": "total ratings"
+    "ratingCount": "total ratings",
+    "no_comments": "No comments yet. Be the first to comment!",
+    "write_comment": "Write a comment..."
   },
 
   "common": {
@@ -94,5 +96,11 @@
   "comment_create": "commented on \"{title}\"",
   "follow_user": "started following {title}",
   "default": "performed an action"
-}
+},
+  "feed": {
+    "likes": "likes",
+    "view_one_comment": "View 1 comment",
+    "view_all_comments": "View all {{count}} comments",
+    "be_first_comment": "Be the first to comment..."
+  }
 }

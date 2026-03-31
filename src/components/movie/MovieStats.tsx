@@ -2,7 +2,7 @@
 
 import { Movie } from "@/types";
 import { useTranslation } from "@/context/LanguageContext";
-import { StarIcon, UsersIcon } from "lucide-react"; // Ikonlar için lucide-react öneririm
+import { StarIcon, UsersIcon } from "lucide-react"; 
 
 interface MovieStatsProps {
   movie: Movie;
@@ -41,10 +41,6 @@ export default function MovieStats({ movie }: MovieStatsProps) {
             </div>
           </div>
         </div>
-
-        {/* <button className="w-full bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 rounded-lg transition-all active:scale-95 shadow-lg shadow-yellow-900/20">
-          {t('movie.rateNow')}
-        </button> */}
       </div>
     </div>
   );

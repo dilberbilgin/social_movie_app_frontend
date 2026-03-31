@@ -12,9 +12,8 @@ export const useMovies = () => {
   const fetchMovies = async (filters?: { genreId?: string; title?: string }) => {
     setLoading(true);
     try {
-      // Burada servis katmanındaki arama metodunu çağıracağız
       const res = await movieService.searchMovies(filters); 
-      if (res.success) setMovies(res.data);
+      if (res.success) setMovies(res.data.content);
     } finally {
       setLoading(false);
     }

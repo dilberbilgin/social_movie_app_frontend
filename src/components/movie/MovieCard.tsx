@@ -21,7 +21,7 @@ export default function MovieCard({ movie: initialMovie }: { movie: Movie }) {
   try {
     setIsLiking(true);
     
-    // KRİTİK DÜZELTME: Hem id hem de tmdbId gönderiyoruz
+    // Hem id hem de tmdbId gönderiyoruz
     const response = await movieService.toggleLike(movie.id, movie.tmdbId); 
     
     setMovie(prev => ({

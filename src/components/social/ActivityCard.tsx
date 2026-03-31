@@ -1,5 +1,4 @@
-
-
+"use client";
 import { ActivityResponse } from "@/types";
 import { formatDistanceToNow } from "date-fns";
 import Link from "next/link";
@@ -12,8 +11,6 @@ interface Props {
   compact?: boolean;
 }
 
-// export const ActivityCard = ({ activity }: Props) => {
-//   const { t } = useTranslation();
 export const ActivityCard = ({ activity, compact = false }: Props) => {
   const { lang, t } = useTranslation();
   const dateLocale = lang === "tr" ? tr : enUS;
@@ -41,7 +38,7 @@ export const ActivityCard = ({ activity, compact = false }: Props) => {
         href={`/movies/${activity.targetId}`}
         className="flex items-center gap-4 p-2 bg-gray-900/60 rounded-xl border border-gray-800 hover:border-yellow-500 hover:bg-gray-800/40 transition-all group h-28"
       >
-        {/* Resim Alanı: Tam olarak ana sayfa film kartı oranında (2/3) */}
+        {/* Resim Alanı: ana sayfa film kartı oranında */}
         <div className="relative w-16 h-full shrink-0 overflow-hidden rounded-lg border border-gray-700">
           <img
             src={getImageUrl(activity.targetImage)}
@@ -104,7 +101,7 @@ export const ActivityCard = ({ activity, compact = false }: Props) => {
 {!isFollowAction && activity.targetImage && (
   <Link href={getTargetLink()} className="block bg-black/20 border-y border-gray-800/50">
     <div className="relative w-full flex justify-center py-4 bg-gray-950/40">
-      {/* Arka Plan Bulanıklığı (Opsiyonel: Estetik bir hava katar) */}
+      {/* Arka Plan Bulanıklığı */}
       <div 
         className="absolute inset-0 blur-2xl opacity-20"
         style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w200${activity.targetImage})`, backgroundSize: 'cover' }}
@@ -126,7 +123,7 @@ export const ActivityCard = ({ activity, compact = false }: Props) => {
       {!isFollowAction && (
         <FeedActions 
     activityId={activity.id} 
-    targetId={activity.targetId} // <-- Eksik olan buydu, eklendi
+    targetId={activity.targetId} 
     initialLikeCount={activity.likeCount || 0}
     initialCommentCount={activity.commentCount || 0}
     initialUserReaction={activity.userReaction}

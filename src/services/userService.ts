@@ -14,14 +14,6 @@ export const userService = {
     return response.data;
   },
 
-//  searchUsers: async (query: string, lang: string): Promise<RestResponse<UserResponse[]>> => {
-//     // Backend'de @RequestParam String query demiştik, o yüzden anahtar 'query' olmalı
-//     const response = await api.get<RestResponse<UserResponse[]>>(`/users/search`, { 
-//       params: { query, lang } 
-//     });
-//     return response.data;
-//   },
-
 searchUsers: async (query: string, lang: string, page: number = 0, size: number = 10): Promise<RestResponse<PageResponse<UserResponse>>> => {
     const response = await api.get<RestResponse<PageResponse<UserResponse>>>(`/users/search`, { 
       params: { 
@@ -33,16 +25,6 @@ searchUsers: async (query: string, lang: string, page: number = 0, size: number 
     });
     return response.data;
 },
-
-// Dönüş tipini PageResponse olarak güncelledik
-  // searchUsers: async (query: string, lang: string): Promise<RestResponse<PageResponse<UserResponse>>> => {
-  //   const response = await api.get<RestResponse<PageResponse<UserResponse>>>(`/users/search`, { 
-  //     params: { query, lang } 
-  //   });
-  //   return response.data;
-  // },
-
-
 
   getSuggestedUsers: async (limit: number = 5): Promise<RestResponse<UserResponse[]>> => {
   const response = await api.get<RestResponse<UserResponse[]>>(`/users/suggestions`, { params: { limit } });

@@ -36,7 +36,7 @@ export default function MovieHero({ movie, onMovieUpdated }: MovieHeroProps) {
             alt=""
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/70 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-gray-950 via-gray-950/70 to-transparent" />
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 h-full flex items-end pb-12 gap-8">

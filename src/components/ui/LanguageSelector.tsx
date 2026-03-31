@@ -7,7 +7,7 @@ import { useTranslation } from "@/context/LanguageContext";
 interface LanguageSelectorProps {
   dropdownPosition?: "top" | "bottom";
   hideText?: boolean;
-  align?: "left" | "right"; // <-- YENİ: Hizalama yönü
+  align?: "left" | "right"; // Hizalama yönü
   showLabel?: boolean;
   isFullWidth?: boolean;
 }
@@ -56,7 +56,7 @@ export default function LanguageSelector({
       </button>
 
       {isLangOpen && (
-        <div className={`absolute min-w-[140px] bg-gray-900 border border-gray-800 rounded-xl shadow-2xl z-50 overflow-hidden ${positionClasses} ${alignClasses}`}>
+        <div className={`absolute min-w-35 bg-gray-900 border border-gray-800 rounded-xl shadow-2xl z-50 overflow-hidden ${positionClasses} ${alignClasses}`}>
           <button 
             onClick={() => {changeLanguage('tr'); setIsLangOpen(false)}} 
             className={`w-full p-3 text-left text-xs hover:bg-white/5 transition-colors ${lang === 'tr' ? 'text-yellow-500 font-bold' : 'text-white'}`}

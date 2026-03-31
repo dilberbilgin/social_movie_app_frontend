@@ -33,7 +33,7 @@ export default function CommentItem({
       // 1. Durum: Hash doğrudan bu yorumun ID'si mi? (Örn: Beğeni bildirimi tıklandı)
       if (currentHash === `#comment-${comment.id}`) {
         setHighlight(true);
-        // Instagram tarzı: Beğenilen yorumun kendi reply'larını OTOMATİK AÇMA.
+        // Beğenilen yorumun kendi reply'larını OTOMATİK AÇMA.
         // Sadece scroll yap.
         triggerScroll();
         setTimeout(() => setHighlight(false), 3000);

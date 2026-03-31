@@ -59,7 +59,9 @@
     "yourScore": "Senin Puanın",
     "noRatingsYet": "Henüz puanlanmış film yok.",
     "startExploring": "Filmleri keşfetmeye başla",
-    "ratingCount": "toplam puanlama"
+    "ratingCount": "toplam puanlama",
+    "no_comments": "Henüz yorum yapılmamış. İlk yorumu sen yap!",
+    "write_comment": "Bir yorum yaz..."
   },
   "profile": {
     "myRatings": "Puanladığım Filmler",
@@ -90,5 +92,11 @@
     "comment_create": "\"{title}\" filmine yorum yaptı",
     "follow_user": "{title} adlı kullanıcıyı takip etmeye başladı",
     "default": "bir işlem gerçekleştirdi"
+  },
+  "feed": {
+    "likes": "beğenme",
+    "view_one_comment": "1 yorumu gör",
+    "view_all_comments": "{{count}} yorumun tümünü gör",
+    "be_first_comment": "İlk yorumu sen yap..."
   }
 }

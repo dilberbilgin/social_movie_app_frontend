@@ -1,47 +1,23 @@
 import axios from 'axios';
 
-//  Backend bağlantı ayarları
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api', // Spring Boot adresi
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api',
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// //  Interceptor (Haberci): Her istekten önce çalışır
-// api.interceptors.request.use((config) => {
-//   // 1. LocalStorage'dan seçili dili al, yoksa 'en' kullan (Defaulting)
-//   const lang = typeof window !== 'undefined' ? localStorage.getItem('lang') || 'en' : 'en';
-  
-//   // 2. Her isteğe bu dili ekle (Backend'in messages.properties'i seçmesi için)
-//   config.headers['Accept-Language'] = lang;
-
-//   // URL Parametresi eklemesi (TMDB verileri ve veritabanı çevirileri için)
-//   // Bu sayede tüm isteklerin sonuna otomatik olarak ?lang=tr eklenir
-//   config.params = {
-//     ...config.params,
-//     lang: lang
-//   };
-  
-//   // 3. Token varsa ekle
-//   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
-//   if (token) {
-//     config.headers.Authorization = `Bearer ${token}`;
-//   }
-  
-//   return config;
-// });
-
+// REQUEST INTERCEPTOR: İstek gönderilirken çalışır
 api.interceptors.request.use((config) => {
+  // 1. Dil Yönetimi
   const lang = typeof window !== 'undefined' ? localStorage.getItem('lang') || 'en' : 'en';
   config.headers['Accept-Language'] = lang;
-
-  // Sadece ihtiyacı olan istekler için params ekle
   config.params = { ...config.params, lang };
 
+  // 2. Token Yönetimi
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
   
-  // EĞER TOKEN VARSA VE "null" STRİNG DEĞİLSE EKLE
+  // Sadece gerçek ve geçerli bir token varsa header'a ekle
   if (token && token !== 'null' && token !== 'undefined') {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -49,13 +25,17 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// 401 HATASI ALIRSAK TOKEN'I SİL (Interceptor Response)
+// RESPONSE INTERCEPTOR: Yanıt dönerken çalışır
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    // Eğer backend 401 (Yetkisiz) dönerse, bozuk token'ı temizle
     if (error.response?.status === 401) {
-      localStorage.removeItem('token'); // Geçersiz token'ı temizle
-      // Opsiyonel: window.location.href = '/login'; 
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('token');
+        // Kullanıcıyı login sayfasına atmak istersen:
+        // window.location.href = '/login';
+      }
     }
     return Promise.reject(error);
   }

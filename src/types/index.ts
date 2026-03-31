@@ -1,7 +1,4 @@
 
-/** * GENEL CEVAP ZARFI (RestResponse)
- * Backend'deki RestResponse<T> yapısının aynısı.
- */
 export interface RestResponse<T> {
   data: T;
   // Java'daki Map<String, String> yapısının TS karşılığı bir objedir (Record)
@@ -57,14 +54,6 @@ export interface UserResponse {
   role: string;
 }
 
-// export interface PageResponse<T> {
-//   content: T[];
-//   totalPages: number;
-//   totalElements: number;
-//   last: boolean;
-//   size: number;
-//   number: number;
-// }
 export interface PageResponse<T> {
   content: T[];
   totalElements: number;
@@ -169,7 +158,7 @@ export interface TmdbGenreDto {
 // TMDB'den gelen ham arama sonuçları için
 export interface TmdbMovieDto {
   id: number;
-  // DİKKAT: Java'daki JsonProperty isimlerini kullanıyoruz çünkü 
+  // Java'daki JsonProperty isimlerini kullanıyoruz çünkü 
   // TMDB'den gelen veri hala ham (alt tireli).
   original_title: string; 
   imdb_id?: string;
@@ -199,7 +188,6 @@ export interface ProfileResponse {
   movieCount: number;
   followerCount: number;
   followingCount: number;
-  // recentRatings: RatingResponse[];
   recentRatings: PageResponse<RatingResponse>; 
   isFollowing: boolean;
   recentActivities: PageResponse<ActivityResponse>;
@@ -231,7 +219,6 @@ export interface ActivityResponse {
   targetImage: string | null;
   content: string;
   createdDate: string;
-  // Sosyal Alanlar 
   likeCount: number;
   commentCount: number;
   userReaction: boolean | null;
@@ -240,7 +227,7 @@ export interface ActivityResponse {
 export enum NotificationType {
   COMMENT_LIKE = "COMMENT_LIKE",
   COMMENT_CREATE = "COMMENT_CREATE",
-  COMMENT_REPLY = "COMMENT_REPLY", // Yeni tipimiz
+  COMMENT_REPLY = "COMMENT_REPLY", 
   FOLLOW = "FOLLOW",
 }
 

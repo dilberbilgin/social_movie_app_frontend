@@ -3,7 +3,7 @@ import './globals.css';
 import Sidebar from '@/components/Sidebar';
 import { AuthProvider } from '@/context/AuthContext';
 import { LanguageProvider } from '@/context/LanguageContext';
-import { NotificationProvider } from '@/context/NotificationContext'; // Yeni ekledik
+import { NotificationProvider } from '@/context/NotificationContext'; 
 import { Toaster } from 'react-hot-toast'; // Bildirim popupları için
 
 export default function RootLayout({ 

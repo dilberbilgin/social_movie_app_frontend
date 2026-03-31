@@ -7,13 +7,7 @@ import en from '@/locales/en.json';
 // 1. Sözlükleri bir çatı altında topla
 const translations: Record<string, any> = { tr, en };
 
-// 1. Arayüzü (Interface) netleştiriyoruz
-// interface LanguageContextType {
-//   lang: string;
-//   t: (path: string) => string;
-//   changeLanguage: (newLang: string) => void;
-// }
-// 1. Arayüzü güncelle (ikinci parametre opsiyonel bir obje olsun)
+// 1. Arayüz(ikinci parametre opsiyonel bir obje olsun)
 interface LanguageContextType {
   lang: string;
   t: (path: string, params?: Record<string, any>) => string;
@@ -31,11 +25,6 @@ useEffect(() => {
     setLang(savedLang);
   }, []);
 
-//   const t = (path: string): string => {
-//     // "auth.loginTitle" şeklinde gelen string'i JSON içinde bulur
-// const value = path.split('.').reduce((obj, key) => obj?.[key], translations[lang]);
-//     return value || path; // Bulamazsa anahtarın adını dön (Hata ayıklama için iyi)
-//   };
 const t = (path: string, params?: Record<string, any>): string => {
   // JSON içindeki değeri bul
   let value = path.split('.').reduce((obj, key) => obj?.[key], translations[lang]);
@@ -51,7 +40,6 @@ const t = (path: string, params?: Record<string, any>): string => {
 
   return value;
 };
-
 
   const changeLanguage = (newLang: string) => {
     setLang(newLang);

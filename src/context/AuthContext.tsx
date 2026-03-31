@@ -5,21 +5,21 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 // 1. Kimlik kurallarımızı (Interface) belirliyoruz
 interface AuthContextType {
   user: any;           // Giriş yapan kullanıcının bilgileri
-  token: string | null; // JWT Token (Backend ile konuşmak için pasaportumuz)
+  token: string | null; // JWT Token (Backend ile konuşmak için )
   
   login: (userData: any, token: string) => void;
   logout: () => void;
   isAuthenticated: boolean;
 }
 
-// 2. Boş havuzu oluşturuyoruz
+// 2. Boş havuzu oluştur
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<any>(null);
   const [token, setToken] = useState<string | null>(null);
 
-  // 3. Hafıza Sensörü: Sayfa açıldığında "Giriş yapılmış mı?" diye bak
+  // 3. Sayfa açıldığında "Giriş yapılmış mı?" kontrolü yap
   useEffect(() => {
     const savedToken = localStorage.getItem('token');
     const savedUser = localStorage.getItem('user');
@@ -27,18 +27,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (savedToken && savedUser) {
       setToken(savedToken);
       try {
-        // LocalStorage'daki metni tekrar objeye çeviriyoruz (Deserilization)
+        // LocalStorage'daki metni tekrar objeye çevir(Deserilization)
         setUser(JSON.parse(savedUser));
       } catch (error) {
         console.error("User bilgisi okunurken hata oluştu:", error);
       }
     }
   }, []);
-  //   if (savedToken && savedUser) {
-  //     setToken(savedToken);
-  //     setUser(JSON.parse(savedUser)); // JSON metnini tekrar objeye çevir
-  //   }
-  // }, []);
 
   // 4. Giriş Yapma Fonksiyonu
   const login = (userData: any, newToken: string) => {
@@ -63,7 +58,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-// 6. Güvenli Hook (Emniyet Kemeri)
+// 6. Güvenli Hook oluşturuyoruz (Context'i kullanmak için)
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {

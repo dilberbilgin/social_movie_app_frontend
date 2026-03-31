@@ -19,7 +19,7 @@ export default function FollowModal({ title, isOpen, onClose, users, onAction }:
   const { user: currentUser } = useAuth();
   const [loadingId, setLoadingId] = useState<string | null>(null);
   
-  // 1. ÖNEMLİ: Gelen kullanıcıları lokal state'e alıyoruz ki anlık güncelleyebilelim
+  // 1. Gelen kullanıcıları lokal state'e alıyoruz ki anlık güncelleyebilelim
   const [localUsers, setLocalUsers] = useState<UserResponse[]>([]);
 
   // Modal her açıldığında veya users değişkendiğinde lokal state'i güncelle
@@ -44,7 +44,7 @@ export default function FollowModal({ title, isOpen, onClose, users, onAction }:
         await followService.follow(u.id);
       }
       
-      // 2. ÖNEMLİ: Arayüzü anlık güncelle (Optimistic Update)
+      // 2. Arayüzü anlık güncelle (Optimistic Update)
       setLocalUsers(prev => prev.map(user => 
         user.id === u.id ? { ...user, isFollowing: !user.isFollowing } : user
       ));

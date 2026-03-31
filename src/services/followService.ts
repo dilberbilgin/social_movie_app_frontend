@@ -2,14 +2,6 @@ import { RestResponse, UserResponse } from "@/types";
 import api from "./api";
 
 export const followService = {
-  // follow: async (followingId: string): Promise<RestResponse<void>> => {
-  //   const response = await api.post<RestResponse<void>>('/follows/follow', { followingId });
-  //   return response.data;
-  // },
-  // unfollow: async (followingId: string): Promise<RestResponse<void>> => {
-  //   const response = await api.post<RestResponse<void>>('/follows/unfollow', { followingId });
-  //   return response.data;
-  // },
 
   follow: async (followingId: string): Promise<RestResponse<void>> => {
     // Backend FollowRequest { followingId: UUID } bekliyor
@@ -17,7 +9,7 @@ export const followService = {
     return response.data;
   },
   unfollow: async (followingId: string): Promise<RestResponse<void>> => {
-    // BURASI ÖNEMLİ: Unfollow için de aynı FollowRequest formatını gönderiyoruz
+    // Unfollow için de aynı FollowRequest formatını gönderiyoruz
     const response = await api.post<RestResponse<void>>('/follows/unfollow', { followingId });
     return response.data;
   },

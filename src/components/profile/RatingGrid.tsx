@@ -1,10 +1,10 @@
 "use client";
 import Link from "next/link";
-import { RatingResponse, PageResponse } from "@/types"; // PageResponse tipini ekledik
+import { RatingResponse, PageResponse } from "@/types"; 
 
 interface Props {
-  // ratings: RatingResponse[]; // ESKİ HALİ
-  ratings: PageResponse<RatingResponse>; // YENİ HALİ
+  // ratings: RatingResponse[]; 
+  ratings: PageResponse<RatingResponse>;
   isOwnProfile: boolean;
 }
 

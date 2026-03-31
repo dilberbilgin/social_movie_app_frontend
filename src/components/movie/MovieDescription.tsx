@@ -5,7 +5,6 @@ interface Props {
   overview: string;
 }
 
-// 'export' ifadesinin tam burada olduğundan emin olun
 export const MovieDescription = ({ title, overview }: Props) => {
   const { t } = useTranslation();
   return (
