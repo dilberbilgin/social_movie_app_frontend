@@ -27,8 +27,8 @@
     "noResults": "No users found."
   },
   "home": {
-    "welcomeTitle": "Welcome to MovieSocial!",
-    "welcomeSubtitle": "Share your movie experience with friends, explore new worlds.",
+    "welcomeTitle": "Social Movie Club!",
+    "welcomeSubtitle": "The club for movie lovers.",
     "trending": "Trending Movies",
     "topRated": "Top Rated Movies",
     "socialFeedTitle": "Social Feed",
@@ -102,5 +102,14 @@
     "view_one_comment": "View 1 comment",
     "view_all_comments": "View all {{count}} comments",
     "be_first_comment": "Be the first to comment..."
-  }
+  },
+  "search": {
+  "title": "Search",
+  "placeholder": "Search movies or users...",
+  "typeToExplore": "Type to explore",
+  "noResults": "No results found.",
+  "exploreTag": "Explore",
+  "movies": "Movies",
+  "users": "Users"
+}
 }

@@ -24,3 +24,14 @@ body {
   max-width: 1200px;
   margin: 0 auto;
 }
+
+/* globals.css */
+/* @layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+} */

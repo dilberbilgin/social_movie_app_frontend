@@ -92,10 +92,18 @@ export default function SearchModal({ onClose }: { onClose: () => void }) {
             </p>
             {/* Küçük bir tag ekleyerek kullanıcıyı bilgilendirebiliriz */}
             {!isLocalId && isMovie && (
-              <span className="text-[8px] bg-blue-500/20 text-blue-400 px-1 rounded uppercase">New</span>
+              <span className="text-[8px] bg-blue-500/20 text-blue-400 px-1 rounded uppercase">
+                {t('search.exploreTag')}
+                </span>
             )}
           </div>
           <p className="text-xs text-gray-500 truncate">{item.subTitle || (isMovie ? 'Movie' : 'User')}</p>
+        {/* AÇIKLAMA (Description) - Burayı ekledik */}
+  {item.description && (
+    <p className="text-[11px] text-gray-400 leading-tight line-clamp-2 italic opacity-80 group-hover:opacity-100 transition-opacity">
+      {item.description}
+    </p>
+  )}
         </div>
         
         <ChevronRight size={14} className="text-gray-700 group-hover:text-yellow-500 transform group-hover:translate-x-1 transition-all" />
@@ -112,7 +120,7 @@ export default function SearchModal({ onClose }: { onClose: () => void }) {
         {/* Search Header */}
         <div className="p-6 border-b border-gray-800">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-black tracking-tighter">Search</h2>
+            <h2 className="text-2xl font-black tracking-tighter">{t('search.title')}</h2>
             <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full transition-colors">
               <X size={20} />
             </button>
@@ -128,7 +136,7 @@ export default function SearchModal({ onClose }: { onClose: () => void }) {
               autoFocus
               type="text"
               value={query}
-              placeholder="Search movies or users..."
+              placeholder={t('search.placeholder')}
               className="w-full bg-gray-900 border border-gray-800 rounded-xl py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-yellow-500/50 text-sm transition-all"
               onChange={(e) => setQuery(e.target.value)}
             />
@@ -140,7 +148,7 @@ export default function SearchModal({ onClose }: { onClose: () => void }) {
           {!results && !isLoading && (
             <div className="h-full flex flex-col items-center justify-center text-gray-600 opacity-50">
               <History size={40} className="mb-3" />
-              <p className="text-xs font-bold uppercase tracking-widest">Type to explore</p>
+              <p className="text-xs font-bold uppercase tracking-widest">{t('search.typeToExplore')}</p>
             </div>
           )}
 
@@ -149,7 +157,7 @@ export default function SearchModal({ onClose }: { onClose: () => void }) {
               {/* Movies Group */}
               {results.movies.length > 0 && (
                 <section>
-                  <h3 className="px-4 mb-2 text-[10px] font-black text-gray-500 uppercase tracking-widest">Movies</h3>
+                  <h3 className="px-4 mb-2 text-[10px] font-black text-gray-500 uppercase tracking-widest">{t('search.movies')}</h3>
                   {results.movies.map(renderItem)}
                 </section>
               )}
@@ -157,13 +165,13 @@ export default function SearchModal({ onClose }: { onClose: () => void }) {
               {/* Users Group */}
               {results.users.length > 0 && (
                 <section>
-                  <h3 className="px-4 mb-2 text-[10px] font-black text-gray-500 uppercase tracking-widest">Users</h3>
+                  <h3 className="px-4 mb-2 text-[10px] font-black text-gray-500 uppercase tracking-widest">{t('search.users')}</h3>
                   {results.users.map(renderItem)}
                 </section>
               )}
 
               {results.movies.length === 0 && results.users.length === 0 && (
-                <div className="text-center py-20 text-gray-600 italic text-sm">No results found.</div>
+                <div className="text-center py-20 text-gray-600 italic text-sm">{t('search.noResults')}</div>
               )}
             </div>
           )}

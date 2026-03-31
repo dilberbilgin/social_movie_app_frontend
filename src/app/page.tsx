@@ -40,21 +40,21 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gray-950 pb-20">
       {/* Hero Banner (Öne Çıkan Tek Bir Film) */}
-      <div className="h-[50vh] relative flex items-center px-8 bg-linear-to-r from-black to-transparent">
+      <div className="h-[24vh] md:h-[24vh] relative flex items-center px-4 bg-linear-to-r from-black to-transparent">
         <div className="z-10 max-w-2xl">
-          <h1 className="text-5xl font-black text-white mb-4 uppercase italic tracking-tighter">
+          <h1 className="text-3xl font-black text-white mb-1 tracking-tighter">
              {t('home.welcomeTitle')}
           </h1>
           <p className="text-gray-400 text-lg mb-6">{t('home.welcomeSubtitle')}</p>
         </div>
       </div>
 
-      <div className="space-y-8 -mt-20 relative z-20">
+      <div className="space-y-2 -mt-12 relative z-20">
         <MovieRow title={t('home.trending')} movies={trending} />
         <MovieRow title={t('home.topRated')} movies={topRated} />
         
         {/* Sosyal Akış (Social Feed) Bölümü */}
-        <section className="px-4 max-w-4xl mx-auto">
+        <section className="px-4 max-w-4xl mx-auto pt-4">
            <div className="mb-6 flex items-center justify-between">
               <h2 className="text-2xl font-bold text-white px-4">
                 {t('home.socialFeedTitle') || 'Social Feed'}

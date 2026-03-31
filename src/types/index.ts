@@ -244,6 +244,7 @@ export interface NotificationResponse {
 }
 
 export interface SearchResultDto {
+    description: any;
     id: string;
     title: string;
     subTitle: string;

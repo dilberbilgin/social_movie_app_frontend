@@ -14,7 +14,7 @@
     "loginNow": "Giriş yap"
   },
   "nav": {
-    "welcome": "Hoş geldin",
+    "welcome": "Sinema Kulübune Hoş geldin",
     "guest": "Kullanıcı",
     "logout": "Çıkış Yap",
     "home": "Anasayfa",
@@ -25,8 +25,8 @@
     "explore": "Keşfet"
   },
   "home": {
-    "welcomeTitle": "MovieSocial'a Hoş Geldin!",
-    "welcomeSubtitle": "Arkadaşlarınla film deneyimini paylaş, yeni dünyalar keşfet.",
+    "welcomeTitle": "Social Movie Club",
+    "welcomeSubtitle": "Film tutkunlarının kulübü",
     "trending": "Trend Filmler",
     "topRated": "En Yüksek Puanlılar",
     "socialFeedTitle": "Sosyal Akış",
@@ -98,5 +98,14 @@
     "view_one_comment": "1 yorumu gör",
     "view_all_comments": "{{count}} yorumun tümünü gör",
     "be_first_comment": "İlk yorumu sen yap..."
-  }
+  },
+    "search": {
+  "title": "Ara",
+  "placeholder": "Filmleri veya kullanıcıları ara...",
+  "typeToExplore": "Keşfetmek için yazın",
+  "noResults": "Sonuç bulunamadı.",
+  "exploreTag": "Keşfet",
+  "movies": "Filmler",
+  "users": "Kullanıcılar"
+}
 }

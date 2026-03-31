@@ -39,7 +39,8 @@ export default function MovieCard({ movie: initialMovie }: { movie: Movie }) {
 };
 
   return (
-    <Link href={`/movies/${movie.id}?tmdbId=${movie.tmdbId}`} className="group block w-full">
+    <Link href={`/movies/${movie.id}?tmdbId=${movie.tmdbId}`} 
+    className="group block w-32 md:w-40 shrink-0">
       <div className="aspect-2/3 relative rounded-2xl overflow-hidden border border-gray-800 group-hover:border-yellow-500/50 transition-all shadow-xl">
         
         {/* Poster Resmi */}

@@ -74,7 +74,7 @@ export default function ExplorePage() {
   }
 
   try {
-    // KRİTİK DÜZELTME: Eğer genreId boş string ise (ALL seçiliyse), 
+    //  Eğer genreId boş string ise (ALL seçiliyse), 
     // backend'e genreId parametresini hiç göndermiyoruz veya null gönderiyoruz.
     const filters = genreId && genreId !== "" ? { genreId } : undefined;
     
@@ -128,42 +128,42 @@ export default function ExplorePage() {
     <div className="max-w-7xl mx-auto px-6 py-10 space-y-16 animate-in fade-in duration-700">
       
       {/* --- SECTION 1: SUGGESTED (HORIZONTAL SLIDER) --- */}
-      <section className="space-y-6">
+      <section className="space-y-4">
         <div className="flex items-center gap-3">
           <div className="p-2 bg-yellow-500/20 rounded-xl border border-yellow-500/30">
             <Sparkles className="text-yellow-500" size={24} />
           </div>
           <div>
-            <h2 className="text-3xl font-black text-white tracking-tight">Suggested For You</h2>
+            <h2 className="text-2xl font-black text-white tracking-tight">Suggested For You</h2>
             <p className="text-gray-400 text-sm">Top rated gems from our club members</p>
           </div>
         </div>
         
-        <div className="flex gap-6 overflow-x-auto pb-4 no-scrollbar snap-x">
+        <div className="flex overflow-x-auto pb-4 no-scrollbar snap-x">
           {suggestedMovies.length > 0 ? (
             suggestedMovies.map((movie) => (
-              <div key={`suggested-${movie.id}`} className="min-w-[220px] w-[220px] snap-start hover:scale-105 transition-transform duration-300">
+              <div key={`suggested-${movie.id}`} className="min-w-55 w-55 snap-start hover:scale-105 transition-transform duration-300">
                 <MovieCard movie={movie} />
               </div>
             ))
           ) : (
             Array(6).fill(0).map((_, i) => (
-              <div key={i} className="min-w-[220px] h-[330px] bg-gray-900/50 animate-pulse rounded-2xl border border-gray-800" />
+              <div key={i} className="min-w-55 h-82.5 bg-gray-900/50 animate-pulse rounded-2xl border border-gray-800" />
             ))
           )}
         </div>
       </section>
 
-      <div className="h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent" />
+      {/* <div className="h-px bg-linear-to-r from-transparent via-gray-800 to-transparent" /> */}
 
       {/* --- SECTION 2: BROWSE & DISCOVER (GRID) --- */}
       <section className="space-y-8">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-blue-500/20 rounded-xl border border-blue-500/30">
-              <Film className="text-blue-500" size={24} />
+              <Film className="text-blue-500" size={20} />
             </div>
-            <h2 className="text-3xl font-black text-white tracking-tight">Browse All</h2>
+            <h2 className="text-2xl font-black text-white tracking-tight">Browse All</h2>
           </div>
           
           {/* Netflix Style Genre Bar */}
@@ -179,13 +179,13 @@ export default function ExplorePage() {
         {isLoading ? (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
             {Array(10).fill(0).map((_, i) => (
-              <div key={i} className="aspect-[2/3] bg-gray-900 animate-pulse rounded-2xl border border-gray-800" />
+              <div key={i} className="aspect-2/3 bg-gray-900 animate-pulse rounded-2xl border border-gray-800" />
             ))}
           </div>
         ) : (
           <>
             {allMovies.length > 0 ? (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-6 gap-y-12">
+              <div className="grid grid-cols-6 gap-x-6 gap-y-4">
                 {allMovies.map((movie, index) => (
                   <div key={`${movie.id}-${index}`} className="animate-in zoom-in-95 duration-500">
                      <MovieCard movie={movie} />
@@ -210,7 +210,7 @@ export default function ExplorePage() {
                 </div>
               ) : !hasMore && allMovies.length > 0 ? (
                 <div className="group flex flex-col items-center gap-4">
-                  <div className="h-[2px] w-24 bg-gradient-to-r from-transparent via-gray-700 to-transparent" />
+                  <div className="h-0.5 w-24 bg-linear-to-r from-transparent via-gray-700 to-transparent" />
                   <p className="text-gray-500 text-sm font-medium tracking-wide">THE END. YOU'VE SEEN IT ALL.</p>
                 </div>
               ) : null}

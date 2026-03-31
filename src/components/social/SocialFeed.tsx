@@ -90,7 +90,7 @@ if (!activities || activities.length === 0)
 
     return (
   <div className="max-w-md mx-auto w-full px-2 sm:px-0 pb-10"> {/* max-w-lg'den md'ye (448px) çektik */}
-    <div className="flex flex-col gap-10">{/* Kartlar arasına boşluk ekledik */}
+    <div className="flex flex-col gap-2">{/* Kartlar arasına boşluk ekledik */}
       {activities.map((activity, index) => {
         if (activities.length === index + 1) {
           return (
