@@ -45,7 +45,7 @@ export default function CommentSection({ movieId, initialData, totalCount }: { m
     <section className="mt-12 border-t border-gray-800 pt-10 pb-20">
       <h2 className="text-2xl font-bold text-white mb-8">
         {/* 💬 {t("movie.comments")} ({commentPage.totalElements}) */}
-        💬 {t("movie.comments")} ({totalCount})
+        💬 {t("movie.comments")} ({commentPage.totalElements})
       </h2>
 
       {/* Ana Yorum Formu (Sadece en üstte) */}
