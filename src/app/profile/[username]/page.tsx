@@ -393,23 +393,49 @@ export default function UserProfilePage() {
 
   // 2. Sekme Koleksiyon Olduğunda Veriyi Çek (Hata düzeltildi)
   useEffect(() => {
-    const fetchCollections = async () => {
-      // Sadece profil yüklendiyse ve koleksiyon sekmesindeysek çalış
-      if (!profile?.id || activeTab !== "collections") return;
-      setCollectionsLoading(true);
-      try {
-        // Backend'deki endpoint'e göre bu metodun ismini kontrol edin
-        const res = await movieCollectionService.getMyCollections(); 
-        if (res.success) setUserCollections(res.data);
-      } catch (error) {
-        console.error("Collections fetch error", error);
-      } finally {
-        setCollectionsLoading(false);
+  const fetchCollections = async () => {
+    // 1. Profil datası gelmeden veya sekme "collections" değilse çalışma
+    if (!profile?.username || activeTab !== "collections") return;
+    
+    setCollectionsLoading(true);
+    try {
+      let res;
+      if (isOwnProfile) {
+        // Kendi profilimdeysem "benimkileri" getir
+        res = await movieCollectionService.getMyCollections();
+      } else {
+        // Başkasının profilindeysem (Test 5), O KULLANICININ koleksiyonlarını getir
+        res = await movieCollectionService.getUserCollections(profile.username);
       }
-    };
+      
+      if (res.success) setUserCollections(res.data);
+    } catch (error) {
+      console.error("Collections fetch error", error);
+    } finally {
+      setCollectionsLoading(false);
+    }
+  };
 
-    fetchCollections();
-  }, [activeTab, profile?.id]);
+  fetchCollections();
+}, [activeTab, profile?.username, isOwnProfile]); // Bağımlılıklara isOwnProfile ve username ekledik
+  // useEffect(() => {
+  //   const fetchCollections = async () => {
+  //     // Sadece profil yüklendiyse ve koleksiyon sekmesindeysek çalış
+  //     if (!profile?.id || activeTab !== "collections") return;
+  //     setCollectionsLoading(true);
+  //     try {
+  //       // Backend'deki endpoint'e göre bu metodun ismini kontrol edin
+  //       const res = await movieCollectionService.getMyCollections(); 
+  //       if (res.success) setUserCollections(res.data);
+  //     } catch (error) {
+  //       console.error("Collections fetch error", error);
+  //     } finally {
+  //       setCollectionsLoading(false);
+  //     }
+  //   };
+
+  //   fetchCollections();
+  // }, [activeTab, profile?.id]);
 
 
   // Takipçi/Takip Edilen Modalları
