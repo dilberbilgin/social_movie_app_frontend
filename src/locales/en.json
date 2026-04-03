@@ -81,7 +81,10 @@
     "noBioYet": "No biography yet.",
     "recentActivity": "Recent Activity",
     "follow": "Follow",
-    "unfollow": "Unfollow"
+    "unfollow": "Unfollow",
+  "collections": "Collections",
+  "noRecentActivity": "No recent activity yet.",
+  "noCollections": "No collections created yet."
   },
   "comment": {
     "reply": "REPLY",

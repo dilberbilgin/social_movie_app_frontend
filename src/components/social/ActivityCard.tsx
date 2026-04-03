@@ -418,17 +418,34 @@ export const ActivityCard = ({ activity, compact = false }: Props) => {
     return `https://image.tmdb.org/t/p/w500${cleanPath}`;
   };
 
+  // const getTargetLink = () => {
+  //   if (activity.type === "FOLLOW_USER") 
+  //     return `/profile/${activity.targetId}`;
+  //   return `/movies/${activity.targetId}`;
+  // };
   const getTargetLink = () => {
-    if (activity.type === "FOLLOW_USER") return `/profile/${activity.targetId}`;
-    return `/movies/${activity.targetId}`;
-  };
+  // 1. Takip işlemiyse profile git
+  if (activity.type === "FOLLOW_USER") {
+    return `/profile/${activity.username}`;
+  }
+
+  // 2. Koleksiyon işlemiyse koleksiyon detayına git
+  // Backend'den gelen activity.type'a göre kontrol et (Örn: COLLECTION_CREATE, COLLECTION_ADD)
+  if (activity.type.toString().includes("COLLECTION")) {
+    return `/collections/${activity.targetId}`;
+  }
+
+  // 3. Varsayılan olarak film detayına git
+  return `/movies/${activity.targetId}`;
+};
 
   const isFollowAction = activity.type === "FOLLOW_USER";
 
   if (compact) {
     return (
       <Link
-        href={`/movies/${activity.targetId}`}
+        // href={`/movies/${activity.targetId}`}
+        href={getTargetLink()}
         className="flex items-center gap-4 p-2 bg-gray-900/60 rounded-xl border border-gray-800 hover:border-yellow-500 hover:bg-gray-800/40 transition-all group h-28"
       >
         <div className="relative w-16 h-full shrink-0 overflow-hidden rounded-lg border border-gray-700">

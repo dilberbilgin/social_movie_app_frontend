@@ -113,14 +113,30 @@ export default function MovieCard({ movie: initialMovie }: { movie: Movie }) {
   }, [initialMovie]);
 
   // Görsel URL Temizleyici ve Güvenlik Kontrolü
+  // const getSafePosterUrl = () => {
+  //   const url = movie.posterUrl;
+  //   // Hatalı via.placeholder linklerini veya boş verileri filtrele
+  //   if (!url || url.includes("via.placeholder.com") || url === "null" || url === "") {
+  //     return null;
+  //   }
+  //   return url;
+  // };
+
   const getSafePosterUrl = () => {
-    const url = movie.posterUrl;
-    // Hatalı via.placeholder linklerini veya boş verileri filtrele
-    if (!url || url.includes("via.placeholder.com") || url === "null" || url === "") {
-      return null;
-    }
-    return url;
-  };
+  const url = movie.posterUrl;
+  
+  if (!url || url.includes("via.placeholder.com") || url === "null" || url === "") {
+    return null;
+  }
+
+  // EĞER URL "http" ile başlamıyorsa, bu bir TMDB path'idir. Başına domain ekleyelim.
+  if (!url.startsWith("http")) {
+    const cleanPath = url.startsWith("/") ? url : `/${url}`;
+    return `https://image.tmdb.org/t/p/w500${cleanPath}`;
+  }
+
+  return url;
+};
 
   const safePoster = getSafePosterUrl();
 

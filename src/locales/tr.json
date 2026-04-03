@@ -73,7 +73,10 @@
     "noBioYet": "Henüz bir biyografi eklenmemiş.",
     "recentActivity": "Son Aktiviteler",
     "follow": "Takip Et",
-    "unfollow": "Takibi Bırak"
+    "unfollow": "Takibi Bırak",
+  "collections": "Koleksiyonlar",
+  "noRecentActivity": "Henüz bir aktivite yok.",
+  "noCollections": "Henüz bir koleksiyon oluşturulmadı."
   },
   "common": {
     "areYouSure": "Bu puanı silmek istediğinize emin misiniz?",

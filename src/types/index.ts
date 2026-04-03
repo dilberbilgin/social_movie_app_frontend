@@ -191,6 +191,7 @@ export interface ProfileResponse {
   recentRatings: PageResponse<RatingResponse>; 
   isFollowing: boolean;
   recentActivities: PageResponse<ActivityResponse>;
+  collections: MovieCollectionResponse[];
 }
 
 export interface UserProfileUpdateRequest {
@@ -257,6 +258,23 @@ export interface GlobalSearchResponse {
     movies: SearchResultDto[];
     users: SearchResultDto[];
     topResults: SearchResultDto[];
+}
+
+export interface MovieCollectionRequest {
+  name: string;
+  description?: string;
+  isPublic: boolean;
+}
+
+export interface MovieCollectionResponse {
+  id: string;
+  name: string;
+  description: string;
+  isPublic: boolean;
+  movieCount: number;
+  ownerUsername: string;
+  coverImageUrl?: string;
+  movies: Movie[];
 }
 
 
