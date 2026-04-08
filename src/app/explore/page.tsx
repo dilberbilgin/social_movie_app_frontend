@@ -142,7 +142,7 @@ export default function ExplorePage() {
         <div className="flex overflow-x-auto pb-4 no-scrollbar snap-x">
           {suggestedMovies.length > 0 ? (
             suggestedMovies.map((movie) => (
-              <div key={`suggested-${movie.id}`} className="min-w-55 w-55 snap-start hover:scale-105 transition-transform duration-300">
+              <div key={`suggested-${movie.id}`} className="min-w-55 w-55 snap-start">
                 <MovieCard movie={movie} />
               </div>
             ))
@@ -158,12 +158,13 @@ export default function ExplorePage() {
 
       {/* --- SECTION 2: BROWSE & DISCOVER (GRID) --- */}
       <section className="space-y-8">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between ">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-blue-500/20 rounded-xl border border-blue-500/30">
+            
+            {/* <div className="p-2 bg-blue-500/20 rounded-xl border border-blue-500/30">
               <Film className="text-blue-500" size={20} />
-            </div>
-            <h2 className="text-2xl font-black text-white tracking-tight">Browse All</h2>
+            </div> */}
+            {/* <h2 className="text-2xl font-black text-white tracking-tight">Browse All</h2> */}
           </div>
           
           {/* Netflix Style Genre Bar */}
@@ -187,7 +188,7 @@ export default function ExplorePage() {
             {allMovies.length > 0 ? (
               <div className="grid grid-cols-6 gap-x-6 gap-y-4">
                 {allMovies.map((movie, index) => (
-                  <div key={`${movie.id}-${index}`} className="animate-in zoom-in-95 duration-500">
+                  <div key={`${movie.id}-${index}`} >
                      <MovieCard movie={movie} />
                   </div>
                 ))}

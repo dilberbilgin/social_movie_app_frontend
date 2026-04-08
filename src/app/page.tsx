@@ -9,6 +9,8 @@ import { useTranslation } from '@/context/LanguageContext';
 import MovieRow from '@/components/movie/MovieRow';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { SocialFeed } from '@/components/social/SocialFeed';
+import { PopularReviewSection } from '@/components/social/PopularReviewSection';
+
 
 export default function Home() {
   const [trending, setTrending] = useState<Movie[]>([]);
@@ -51,7 +53,12 @@ export default function Home() {
 
       <div className="space-y-2 -mt-12 relative z-20">
         <MovieRow title={t('home.trending')} movies={trending} />
+
+        {/* <PopularReviewSection /> */}
+        
         <MovieRow title={t('home.topRated')} movies={topRated} />
+
+        <PopularReviewSection />
         
         {/* Sosyal Akış (Social Feed) Bölümü */}
         <section className="px-4 max-w-4xl mx-auto pt-4">

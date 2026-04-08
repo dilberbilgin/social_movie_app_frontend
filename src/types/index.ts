@@ -277,6 +277,19 @@ export interface MovieCollectionResponse {
   movies: Movie[];
 }
 
+export interface TrendingReview {
+  commentId: string;
+  commentContent: string;
+  username: string;
+  profilePictureUrl: string | null;
+  movieTitle: string;
+  moviePosterUrl: string;
+  finalLikeCount: number;
+  weekEndDate: string;
+  movieId: string;    // Bu eksik olduğu için hata veriyordu
+  tmdbId: number;
+}
+
 
 
 

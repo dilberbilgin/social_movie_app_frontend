@@ -5,7 +5,8 @@ import {
   PageResponse, 
   RatingRequest, 
   RatingResponse, 
-  RestResponse 
+  RestResponse, 
+  TrendingReview
 } from '../types';
 
 export const movieService = {
@@ -104,5 +105,13 @@ export const movieService = {
     const response = await api.post<RestResponse<Movie>>(`/tmdb/import/${tmdbId}`);
     return response.data;
   },
+
+  // Popüler yorumları (trending) getirir
+  getTrendingReviews: async (limit: number = 4): Promise<RestResponse<TrendingReview[]>> => {
+    const response = await api.get<RestResponse<TrendingReview[]>>('/v1/weekly-winners/trending', {
+      params: { limit }
+    });
+    return response.data;
+  }
 };
 
