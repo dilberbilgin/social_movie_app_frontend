@@ -186,6 +186,11 @@ export const PopularReviewSection = () => {
           onClose={() => setSelectedTmdbId(null)} 
         />
       )}
+
+
+<div className="flex justify-between items-center border-b border-gray-800 pb-4 mb-6"></div>      
     </section>
+
+    
   );
 };

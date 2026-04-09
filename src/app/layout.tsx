@@ -26,8 +26,12 @@ export default function RootLayout({
               <Sidebar />
 
               {/* 2. Ana İçerik Alanı */}
-              <div className="flex-1 ml-16 xl:ml-64 min-h-screen flex flex-col">
-                <main className="container mx-auto px-4 py-6"> 
+              {/* <div className="flex-1 ml-16 xl:ml-64 min-h-screen flex flex-col">
+                <main className="container mx-auto px-4 py-6">  */}
+                  <div className="flex-1 transition-all duration-300 
+     ml-0 sm:ml-16 xl:ml-64 
+     min-h-screen flex flex-col">
+  <main className="container mx-auto px-2 sm:px-4 py-6">
                   {children}
                 </main>
               </div>
