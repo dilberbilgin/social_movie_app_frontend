@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import { movieCollectionService } from '@/services/movieCollectionService';
-import { MovieCollectionResponse } from '@/types';
-import { toast } from 'react-hot-toast';
-import { useTranslation } from '@/context/LanguageContext';
+import { useState, useEffect } from "react";
+import { movieCollectionService } from "@/services/movieCollectionService";
+import { MovieCollectionResponse } from "@/types";
+import { toast } from "react-hot-toast";
+import { useTranslation } from "@/context/LanguageContext";
 
 export const useCollections = (tmdbId: number) => {
   const [collections, setCollections] = useState<MovieCollectionResponse[]>([]);
@@ -16,29 +16,21 @@ export const useCollections = (tmdbId: number) => {
     setLoading(false);
   };
 
-  // const addToCollection = async (collectionId: string) => {
-  //   try {
-  //     const res = await movieCollectionService.addMovieToCollection(collectionId, tmdbId, lang);
-  //     if (res.success) {
-  //       toast.success(res.message);
-  //       // İsteğe bağlı: Koleksiyondaki film sayısını yerelde güncelle
-  //     }
-  //   } catch (error: any) {
-  //     toast.error(error.response?.data?.message || "Error");
-  //   }
-  // };
-
   const addToCollection = async (collectionId: string) => {
     try {
-      const res = await movieCollectionService.addMovieToCollection(collectionId, tmdbId, lang);
+      const res = await movieCollectionService.addMovieToCollection(
+        collectionId,
+        tmdbId,
+        lang,
+      );
       if (res.success) {
         toast.success(res.message);
-        await fetchCollections(); // KRİTİK: Listeyi yenile ki sayı güncellensin
+        await fetchCollections(); // Listeyi yenile sayı güncellensin
       }
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Error");
     }
-};
+  };
 
   useEffect(() => {
     fetchCollections();

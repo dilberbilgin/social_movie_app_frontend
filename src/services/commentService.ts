@@ -34,25 +34,29 @@ export const commentService = {
     return response.data;
   },
 
-//   toggleLike: async (id: string): Promise<RestResponse<any>> => { // 'any' yerine varsa ReactionResponse tipini yazabilirsin
-//   const response = await api.post<RestResponse<any>>(`/movies/${id}/like`);
-//   return response.data;
-// },
-//   toggleDislike: async (id: string): Promise<RestResponse<void>> => {
-//     const response = await api.post<RestResponse<void>>(
-//       `/comments/${id}/dislike`,
-//     );
-//     return response.data;
-//   },
+  //   toggleLike: async (id: string): Promise<RestResponse<any>> => { // 'any' yerine varsa ReactionResponse tipini yazabilirsin
+  //   const response = await api.post<RestResponse<any>>(`/movies/${id}/like`);
+  //   return response.data;
+  // },
+  //   toggleDislike: async (id: string): Promise<RestResponse<void>> => {
+  //     const response = await api.post<RestResponse<void>>(
+  //       `/comments/${id}/dislike`,
+  //     );
+  //     return response.data;
+  //   },
 
-toggleLike: async (commentId: string): Promise<RestResponse<void>> => {
+  toggleLike: async (commentId: string): Promise<RestResponse<void>> => {
     // Film değil, YORUM beğenisi için endpoint budur:
-    const response = await api.post<RestResponse<void>>(`/comments/${commentId}/like`);
+    const response = await api.post<RestResponse<void>>(
+      `/comments/${commentId}/like`,
+    );
     return response.data;
   },
 
   toggleDislike: async (commentId: string): Promise<RestResponse<void>> => {
-    const response = await api.post<RestResponse<void>>(`/comments/${commentId}/dislike`);
+    const response = await api.post<RestResponse<void>>(
+      `/comments/${commentId}/dislike`,
+    );
     return response.data;
   },
 };

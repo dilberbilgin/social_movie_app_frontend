@@ -1,4 +1,3 @@
-
 "use client";
 import { UserResponse } from "@/types";
 import Link from "next/link";
@@ -10,15 +9,20 @@ interface Props {
   title: string;
   isOpen: boolean;
   onClose: () => void;
-  // users: UserResponse[];
-  users: any; // Backend'den gelen Page objesi
+  users: any;
   onAction?: () => void; // Sayıları yenilemek için tetiklenecek fonksiyon
 }
 
-export default function FollowModal({ title, isOpen, onClose, users, onAction }: Props) {
+export default function FollowModal({
+  title,
+  isOpen,
+  onClose,
+  users,
+  onAction,
+}: Props) {
   const { user: currentUser } = useAuth();
   const [loadingId, setLoadingId] = useState<string | null>(null);
-  
+
   // 1. Gelen kullanıcıları lokal state'e alıyoruz ki anlık güncelleyebilelim
   const [localUsers, setLocalUsers] = useState<UserResponse[]>([]);
 
@@ -43,21 +47,20 @@ export default function FollowModal({ title, isOpen, onClose, users, onAction }:
       } else {
         await followService.follow(u.id);
       }
-      
+
       // 2. Arayüzü anlık güncelle (Optimistic Update)
-      setLocalUsers(prev => prev.map(user => 
-        user.id === u.id ? { ...user, isFollowing: !user.isFollowing } : user
-      ));
+      setLocalUsers((prev) =>
+        prev.map((user) =>
+          user.id === u.id ? { ...user, isFollowing: !user.isFollowing } : user,
+        ),
+      );
 
       if (onAction) onAction();
-
     } catch (error) {
       console.error("Follow action failed", error);
     } finally {
       setLoadingId(null);
-      
     }
-    
   };
 
   return (
@@ -66,20 +69,30 @@ export default function FollowModal({ title, isOpen, onClose, users, onAction }:
         {/* Header */}
         <div className="p-4 border-b border-gray-800 flex justify-between items-center bg-gray-900/50">
           <h3 className="text-lg font-bold text-white">{title}</h3>
-          <button onClick={onClose} className="text-gray-400 hover:text-white cursor-pointer text-xl">✕</button>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-white cursor-pointer text-xl"
+          >
+            ✕
+          </button>
         </div>
-        
+
         {/* Body */}
         <div className="max-h-[60vh] overflow-y-auto p-2 custom-scrollbar">
           {localUsers && localUsers.length > 0 ? (
             localUsers.map((u) => (
-              <div key={u.id} className="flex items-center justify-between p-3 rounded-xl hover:bg-gray-800/50 transition-colors">
-                <Link 
-                  href={`/profile/${u.username}`} 
-                  onClick={onClose} 
+              <div
+                key={u.id}
+                className="flex items-center justify-between p-3 rounded-xl hover:bg-gray-800/50 transition-colors"
+              >
+                <Link
+                  href={`/profile/${u.username}`}
+                  onClick={onClose}
                   className="flex items-center gap-3 flex-1 cursor-pointer"
                 >
-                  <div className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-lg">👤</div>
+                  <div className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-lg">
+                    👤
+                  </div>
                   <p className="text-white font-bold">{u.username}</p>
                 </Link>
 
@@ -88,12 +101,16 @@ export default function FollowModal({ title, isOpen, onClose, users, onAction }:
                     onClick={() => handleFollowToggle(u)}
                     disabled={loadingId === u.id}
                     className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 cursor-pointer min-w-23.75 ${
-                      u.isFollowing 
-                        ? "bg-gray-800 text-gray-400 border border-gray-700 hover:border-red-500 hover:text-red-500" 
+                      u.isFollowing
+                        ? "bg-gray-800 text-gray-400 border border-gray-700 hover:border-red-500 hover:text-red-500"
                         : "bg-yellow-500 text-black hover:bg-yellow-400"
                     }`}
                   >
-                    {loadingId === u.id ? "..." : (u.isFollowing ? "Unfollow" : "Follow")}
+                    {loadingId === u.id
+                      ? "..."
+                      : u.isFollowing
+                        ? "Unfollow"
+                        : "Follow"}
                   </button>
                 )}
               </div>

@@ -1,4 +1,4 @@
-import { useTranslation } from '@/context/LanguageContext';
+import { useTranslation } from "@/context/LanguageContext";
 
 interface Props {
   title: string;
@@ -14,7 +14,7 @@ export const MovieDescription = ({ title, overview }: Props) => {
       </h1>
       <section className="space-y-4 pt- border-t border-white/5">
         <h3 className="text-yellow-500 font-bold uppercase tracking-widest text-sm">
-          {t('movie.overview')}
+          {t("movie.overview")}
         </h3>
         <p className="text-lg md:text-xl text-black-300 leading-relaxed font-light italic">
           "{overview}"

@@ -3,13 +3,13 @@ import Link from "next/link";
 import { RatingResponse, PageResponse } from "@/types"; 
 
 interface Props {
-  // ratings: RatingResponse[]; 
+
   ratings: PageResponse<RatingResponse>;
   isOwnProfile: boolean;
 }
 
 export default function RatingGrid({ ratings, isOwnProfile }: Props) {
-  // ÖNEMLİ: Veriler artık 'content' içinde
+
   const ratingsList = ratings?.content || [];
 
   if (ratingsList.length === 0) {

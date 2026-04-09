@@ -1,4 +1,4 @@
-// src/app/collections/[id]/page.tsx
+
 "use client";
 import { use, useEffect, useState } from "react";
 import { movieCollectionService } from "@/services/movieCollectionService";
@@ -23,14 +23,6 @@ export default function CollectionDetailPage({ params }: PageProps) {
   useEffect(() => {
     const fetchDetail = async () => {
       try {
-//         const res = await movieCollectionService.getCollectionDetail(params.id, 'en');
-//         if (res.success) setCollection(res.data);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-//     fetchDetail();
-//   }, [params.id]);
 const res = await movieCollectionService.getCollectionDetail(collectionId, 'en');
         if (res.success) setCollection(res.data);
       } catch (error) {

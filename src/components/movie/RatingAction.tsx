@@ -16,49 +16,52 @@ export default function RatingAction({
   onRatingSuccess,
 }: RatingActionProps) {
   const { t } = useTranslation();
-//   const [score, setScore] = useState<number>(initialScore || 0);
+
   const [loading, setLoading] = useState(false);
   const [currentScore, setCurrentScore] = useState(initialScore || 0);
-  const [hoverScore, setHoverScore] = useState(0); // Mouse üzerindeyken hangi yıldızda?
+  const [hoverScore, setHoverScore] = useState(0);
 
   useEffect(() => {
-  if (initialScore !== undefined) {
-    setCurrentScore(initialScore);
-  }
-}, [initialScore]);
+    if (initialScore !== undefined) {
+      setCurrentScore(initialScore);
+    }
+  }, [initialScore]);
 
   // RatingAction.tsx içinde (tahmini yapı)
-const handleRate = async (selectedScore: number) => {
-  if (loading) return;
-  setLoading(true);
+  const handleRate = async (selectedScore: number) => {
+    if (loading) return;
+    setLoading(true);
 
-  try {
-    // URL'den tmdbId'yi alıyoruz (Eğer sayfa yenilenirse veya direkt linkle gelinirse diye)
-    const searchParams = new URLSearchParams(window.location.search);
-    const tmdbIdParam = searchParams.get('tmdbId');
+    try {
+      // URL'den tmdbId'yi alıyoruz (Eğer sayfa yenilenirse veya direkt linkle gelinirse diye)
+      const searchParams = new URLSearchParams(window.location.search);
+      const tmdbIdParam = searchParams.get("tmdbId");
 
-    const res = await ratingService.rateMovie({
-      movieId: movieId, // Prop'tan gelen ID
-      tmdbId: tmdbIdParam ? Number(tmdbIdParam) : undefined,
-      score: selectedScore
-    });
+      const res = await ratingService.rateMovie({
+        movieId: movieId, // Prop'tan gelen ID
+        tmdbId: tmdbIdParam ? Number(tmdbIdParam) : undefined,
+        score: selectedScore,
+      });
 
-    if (res.success) {
-      setCurrentScore(selectedScore);
-      
-      // Başarı durumunda Parent (MovieDetailContent) bileşenindeki istatistikleri güncelle
-      if (res.data.newClubRating !== undefined && res.data.newClubVoteCount !== undefined) {
-        onRatingSuccess(res.data.newClubRating, res.data.newClubVoteCount);
+      if (res.success) {
+        setCurrentScore(selectedScore);
+
+        // Başarı durumunda Parent (MovieDetailContent) bileşenindeki istatistikleri güncelle
+        if (
+          res.data.newClubRating !== undefined &&
+          res.data.newClubVoteCount !== undefined
+        ) {
+          onRatingSuccess(res.data.newClubRating, res.data.newClubVoteCount);
+        }
+
+        console.log("Rating success:", res.message);
       }
-      
-      console.log("Rating success:", res.message);
+    } catch (err) {
+      console.error("Rating error", err);
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    console.error("Rating error", err);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   return (
     <div className="flex flex-col items-center p-6 bg-gray-800/80 backdrop-blur-md rounded-3xl border border-gray-700 shadow-2xl">
@@ -81,20 +84,15 @@ const handleRate = async (selectedScore: number) => {
               disabled={loading}
               className="relative transition-all duration-200 transform hover:scale-120 focus:outline-none"
             >
-              <span className={`text-2xl md:text-3xl ${
-                isActive 
-                  ? "text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.6)]" 
-                  : "text-gray-600"
-              } ${loading ? "animate-pulse" : ""}`}>
+              <span
+                className={`text-2xl md:text-3xl ${
+                  isActive
+                    ? "text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.6)]"
+                    : "text-gray-600"
+                } ${loading ? "animate-pulse" : ""}`}
+              >
                 ★
               </span>
-              
-              {/* Tooltip-yildizlarin ustunden gecince sayiyor, simdilik kullanmiyoruz (Opsiyonel) */}
-              {/* {hoverScore === num && (
-                <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-yellow-500 text-black text-[10px] font-bold px-2 py-1 rounded">
-                  {num}
-                </div>
-              )} */}
             </button>
           );
         })}
@@ -102,16 +100,17 @@ const handleRate = async (selectedScore: number) => {
 
       <div className="mt-4 flex flex-col items-center gap-1">
         <span className="text-2xl font-black text-white">
-          {hoverScore || currentScore || "?"}<span className="text-gray-500 text-sm">/10</span>
+          {hoverScore || currentScore || "?"}
+          <span className="text-gray-500 text-sm">/10</span>
         </span>
-        
+
         {currentScore > 0 && !loading && (
-            <button 
-                onClick={() => handleRate(0)} // Opsiyonel: Puanı silme mantığı henuz backend icinde aktif degil. duruma gore aktif edecegiz
-                className="text-[10px] text-gray-500 hover:text-red-400 underline underline-offset-4 transition-colors"
-            >
-                {t("movie.removeRating") || "Remove"}
-            </button>
+          <button
+            onClick={() => handleRate(0)}
+            className="text-[10px] text-gray-500 hover:text-red-400 underline underline-offset-4 transition-colors"
+          >
+            {t("movie.removeRating") || "Remove"}
+          </button>
         )}
       </div>
     </div>

@@ -14,7 +14,7 @@ interface MovieActionMenuProps {
   movieId: string;
   tmdbId: number;
   movieTitle: string;
-  onOpenCollections?: () => void; // Listeler modalını açmak için
+  onOpenCollections?: () => void; 
 }
 
 export const MovieActionMenu = ({ movieId, tmdbId, movieTitle, onOpenCollections }: MovieActionMenuProps) => {
@@ -45,7 +45,7 @@ export const MovieActionMenu = ({ movieId, tmdbId, movieTitle, onOpenCollections
         console.log("Share cancelled");
       }
     } else {
-      // Fallback: Panoya kopyala
+     
       navigator.clipboard.writeText(shareUrl);
       alert(t('common.linkCopied') || 'Link copied to clipboard!');
     }

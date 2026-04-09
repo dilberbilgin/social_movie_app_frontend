@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import { useState } from "react";
@@ -9,7 +7,15 @@ import { useTranslation } from "@/context/LanguageContext";
 import { useAuth } from "@/context/AuthContext";
 import CommentItem from "./CommentItem";
 
-export default function CommentSection({ movieId, initialData, totalCount }: { movieId: string, initialData: PageResponse<CommentResponse>, totalCount: number }) {
+export default function CommentSection({
+  movieId,
+  initialData,
+  totalCount,
+}: {
+  movieId: string;
+  initialData: PageResponse<CommentResponse>;
+  totalCount: number;
+}) {
   const { t } = useTranslation();
   const { user } = useAuth();
   const [commentPage, setCommentPage] = useState(initialData);
@@ -18,7 +24,7 @@ export default function CommentSection({ movieId, initialData, totalCount }: { m
 
   // Sayfa yenilemeden verileri tazeleyen fonksiyon
   const refreshComments = async () => {
-    const res = await commentService.getMovieComments(movieId, 0); // İlk sayfayı çek
+    const res = await commentService.getMovieComments(movieId, 0);
     if (res.success) {
       setCommentPage(res.data);
     }
@@ -28,10 +34,13 @@ export default function CommentSection({ movieId, initialData, totalCount }: { m
     e.preventDefault();
     if (!newComment.trim()) return;
     setIsSubmitting(true);
-    
+
     try {
       // Ana yorumda parentId GÖNDERMİYORUZ (400 hatası almamak için)
-      const res = await commentService.addComment({ movieId, content: newComment });
+      const res = await commentService.addComment({
+        movieId,
+        content: newComment,
+      });
       if (res.success) {
         setNewComment("");
         refreshComments(); // Sayfayı yenilemeden listeyi tazele
@@ -44,11 +53,10 @@ export default function CommentSection({ movieId, initialData, totalCount }: { m
   return (
     <section className="mt-12 border-t border-gray-800 pt-10 pb-20">
       <h2 className="text-2xl font-bold text-white mb-8">
-        {/* 💬 {t("movie.comments")} ({commentPage.totalElements}) */}
         💬 {t("movie.comments")} ({commentPage.totalElements})
       </h2>
 
-      {/* Ana Yorum Formu (Sadece en üstte) */}
+      {/* Ana Yorum Formu  */}
       {user && (
         <form onSubmit={handleMainCommentSubmit} className="mb-10 space-y-3">
           <textarea
@@ -58,7 +66,11 @@ export default function CommentSection({ movieId, initialData, totalCount }: { m
             onChange={(e) => setNewComment(e.target.value)}
           />
           <div className="flex justify-end">
-            <button type="submit" disabled={isSubmitting} className="bg-yellow-500 text-black px-8 py-2 rounded-xl font-bold">
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="bg-yellow-500 text-black px-8 py-2 rounded-xl font-bold"
+            >
               {isSubmitting ? "..." : t("movie.sendComment")}
             </button>
           </div>
@@ -68,11 +80,11 @@ export default function CommentSection({ movieId, initialData, totalCount }: { m
       {/* Yorum Listesi */}
       <div className="space-y-2">
         {commentPage.content.map((comment) => (
-          <CommentItem 
-            key={comment.id} 
-            comment={comment} 
-            movieId={movieId} 
-            onCommentUpdated={refreshComments} 
+          <CommentItem
+            key={comment.id}
+            comment={comment}
+            movieId={movieId}
+            onCommentUpdated={refreshComments}
           />
         ))}
       </div>

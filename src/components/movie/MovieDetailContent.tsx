@@ -68,15 +68,13 @@ export default function MovieDetailContent({ id }: { id: string }) {
           )}
         </aside>
       </div>
-      
-      {/* Modal Bileşeni */}
+
       {isCollectionsModalOpen && (
-        <CollectionsModal 
-          tmdbId={movie.tmdbId} 
-          onClose={() => setIsCollectionsModalOpen(false)} 
+        <CollectionsModal
+          tmdbId={movie.tmdbId}
+          onClose={() => setIsCollectionsModalOpen(false)}
         />
       )}
-
     </div>
   );
 }

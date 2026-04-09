@@ -1,11 +1,18 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
-import { Client } from '@stomp/stompjs';
-import { notificationService } from '@/services/notificationService';
-import { useAuth } from '@/context/AuthContext';
-import { NotificationResponse } from '@/types';
-import { toast } from 'react-hot-toast';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+} from "react";
+import { Client } from "@stomp/stompjs";
+import { notificationService } from "@/services/notificationService";
+import { useAuth } from "@/context/AuthContext";
+import { NotificationResponse } from "@/types";
+import { toast } from "react-hot-toast";
 
 interface NotificationContextType {
   notifications: NotificationResponse[];
@@ -15,15 +22,22 @@ interface NotificationContextType {
   fetchNotifications: () => Promise<void>;
 }
 
-const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
+const NotificationContext = createContext<NotificationContextType | undefined>(
+  undefined,
+);
 
-export const NotificationProvider = ({ children }: { children: React.ReactNode }) => {
+export const NotificationProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const { user, isAuthenticated } = useAuth();
-  const [notifications, setNotifications] = useState<NotificationResponse[]>([]);
+  const [notifications, setNotifications] = useState<NotificationResponse[]>(
+    [],
+  );
 
-  // Memoize edilmiş unreadCount: Gereksiz renderları önler
   const unreadCount = useMemo(() => {
-    return notifications.filter(n => String(n.isRead) === "false").length;
+    return notifications.filter((n) => String(n.isRead) === "false").length;
   }, [notifications]);
 
   const fetchNotifications = useCallback(async () => {
@@ -43,35 +57,45 @@ export const NotificationProvider = ({ children }: { children: React.ReactNode }
       return;
     }
 
-    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+    const token =
+      typeof window !== "undefined" ? localStorage.getItem("token") : null;
     if (!token) return;
 
     fetchNotifications();
 
     // TEK BİR WEBSOCKET BAĞLANTISI
     const client = new Client({
-      brokerURL: `${process.env.NEXT_PUBLIC_API_URL?.replace('http', 'ws')}/ws-notifications`,
-      connectHeaders: { Authorization: token.startsWith('Bearer ') ? token : `Bearer ${token}` },
+      brokerURL: `${process.env.NEXT_PUBLIC_API_URL?.replace("http", "ws")}/ws-notifications`,
+      connectHeaders: {
+        Authorization: token.startsWith("Bearer ") ? token : `Bearer ${token}`,
+      },
       reconnectDelay: 5000,
       onConnect: () => {
-        client.subscribe(`/user/${user.username}/queue/notifications`, (message) => {
-          if (message.body) {
-            const newNotif = JSON.parse(message.body);
-            // State'e yeni bildirimi ekle
-            setNotifications(prev => [newNotif, ...prev]);
-            toast.success(newNotif.message, { icon: '🔔' });
-          }
-        });
+        client.subscribe(
+          `/user/${user.username}/queue/notifications`,
+          (message) => {
+            if (message.body) {
+              const newNotif = JSON.parse(message.body);
+              // State'e yeni bildirimi ekle
+              setNotifications((prev) => [newNotif, ...prev]);
+              toast.success(newNotif.message, { icon: "🔔" });
+            }
+          },
+        );
       },
     });
 
     client.activate();
-    return () => { client.deactivate(); };
+    return () => {
+      client.deactivate();
+    };
   }, [isAuthenticated, user?.username, fetchNotifications]);
 
   const markRead = async (id: string) => {
     // Optimistic Update: Önce UI'ı güncelle
-    setNotifications(prev => prev.map(n => n.id === id ? { ...n, isRead: true } : n));
+    setNotifications((prev) =>
+      prev.map((n) => (n.id === id ? { ...n, isRead: true } : n)),
+    );
     try {
       await notificationService.markAsRead(id);
     } catch (err) {
@@ -82,7 +106,7 @@ export const NotificationProvider = ({ children }: { children: React.ReactNode }
 
   const markAllAsRead = async () => {
     const previous = [...notifications];
-    setNotifications(prev => prev.map(n => ({ ...n, isRead: true })));
+    setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
     try {
       await notificationService.markAllAsRead();
     } catch (err) {
@@ -91,7 +115,15 @@ export const NotificationProvider = ({ children }: { children: React.ReactNode }
   };
 
   return (
-    <NotificationContext.Provider value={{ notifications, unreadCount, markRead, markAllAsRead, fetchNotifications }}>
+    <NotificationContext.Provider
+      value={{
+        notifications,
+        unreadCount,
+        markRead,
+        markAllAsRead,
+        fetchNotifications,
+      }}
+    >
       {children}
     </NotificationContext.Provider>
   );
@@ -99,6 +131,9 @@ export const NotificationProvider = ({ children }: { children: React.ReactNode }
 
 export const useNotifications = () => {
   const context = useContext(NotificationContext);
-  if (!context) throw new Error("useNotifications must be used within a NotificationProvider");
+  if (!context)
+    throw new Error(
+      "useNotifications must be used within a NotificationProvider",
+    );
   return context;
 };

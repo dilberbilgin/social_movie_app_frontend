@@ -101,7 +101,7 @@ export default function CommentItem({
 
   return (
     <div
-      id={`comment-${comment.id}`} // Sayfa içi linkleme için bu ID kritik
+      id={`comment-${comment.id}`} // Sayfa içi linkleme için bu ID kullanılacak
       className={`mt-4 ${isReply ? "ml-8 md:ml-12 border-l-2 border-gray-800 pl-4" : ""} ${highlight ? "bg-yellow-500/10" : ""} rounded-lg transition-colors`}
     >
       <div className="flex gap-3">

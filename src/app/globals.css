@@ -9,6 +9,7 @@
 :root {
   --background: #030712;
   --foreground: #ededed;
+  --border-gray-900: #1f2937;
 }
 
 body {

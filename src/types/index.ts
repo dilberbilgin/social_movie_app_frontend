@@ -1,13 +1,12 @@
-
 export interface RestResponse<T> {
   data: T;
   // Java'daki Map<String, String> yapısının TS karşılığı bir objedir (Record)
-  validationErrors?: Record<string, string>; 
+  validationErrors?: Record<string, string>;
   message: string;
   success: boolean;
   status: number;
   // LocalDateTime TS tarafında string (ISO formatında) olarak karşılanır
-  responseDate: string; 
+  responseDate: string;
 }
 
 /** * YARDIMCI TİPLER
@@ -38,7 +37,6 @@ export interface UserRegistrationRequest {
   lastName?: string;
 }
 
-
 export interface JwtResponse {
   token: string;
   username: string;
@@ -58,23 +56,19 @@ export interface PageResponse<T> {
   content: T[];
   totalElements: number;
   last: boolean;
-  
-  // Hibrit Alanlar: Backend'den hangisi gelirse onu kullanacağız
-  pageNumber?: number; // Senin yeni CustomPageResponse'un
-  number?: number;     // Spring'in orijinal Page nesnesi
-  
-  pageSize?: number;   // Senin yeni CustomPageResponse'un
-  size?: number;       // Spring'in orijinal Page nesnesi
-  
-  totalPages?: number; // Orijinal Page'de var
+
+  pageNumber?: number;
+  number?: number;
+
+  pageSize?: number;
+  size?: number;
+
+  totalPages?: number;
 }
 
-/** * MOVIE MODÜLÜ
- */
-// 1. Ekranda gösterilecek Film (MovieResponse karşılığı)
 export interface Movie {
   commentCount: number;
-  id: string;            // UUID
+  id: string; // UUID
   tmdbId: number;
   originalTitle: string;
   releaseYear: number;
@@ -86,8 +80,8 @@ export interface Movie {
   clubScore: number;
   userScore: number;
   posterUrl: string;
-  title: string;        // Çevrilmiş (Local) başlık
-  description: string;  // Çevrilmiş (Local) açıklama
+  title: string; // Çevrilmiş (Local) başlık
+  description: string; // Çevrilmiş (Local) açıklama
   genres: Genre[];
   likeCount: number;
   dislikeCount: number;
@@ -137,17 +131,16 @@ export interface RatingResponse {
   username: string;
   movieId: string;
 
-  movieTitle?: string;    // Çevrilmiş film adı
-  posterUrl?: string;     
+  movieTitle?: string; // Çevrilmiş film adı
+  posterUrl?: string;
   releaseYear?: number;
 
-  newClubRating?: number;   // Opsiyonel olarak ekledik
+  newClubRating?: number; // Opsiyonel olarak ekledik
   newClubVoteCount?: number;
 }
 
 /** * 5. DIŞ KAYNAK (TMDB Search/Import)
  */
-
 
 export interface TmdbGenreDto {
   id: number;
@@ -158,9 +151,9 @@ export interface TmdbGenreDto {
 // TMDB'den gelen ham arama sonuçları için
 export interface TmdbMovieDto {
   id: number;
-  // Java'daki JsonProperty isimlerini kullanıyoruz çünkü 
+  // Java'daki JsonProperty isimlerini kullanıyoruz çünkü
   // TMDB'den gelen veri hala ham (alt tireli).
-  original_title: string; 
+  original_title: string;
   imdb_id?: string;
   overview: string;
   title: string;
@@ -175,7 +168,7 @@ export interface TmdbSearchResponse {
   page: number;
   results: TmdbMovieDto[];
   total_results: number; // Java'daki totalResults yerine total_results
-  total_pages: number;   // Java'daki totalPages yerine total_pages
+  total_pages: number; // Java'daki totalPages yerine total_pages
 }
 
 export interface ProfileResponse {
@@ -188,7 +181,7 @@ export interface ProfileResponse {
   movieCount: number;
   followerCount: number;
   followingCount: number;
-  recentRatings: PageResponse<RatingResponse>; 
+  recentRatings: PageResponse<RatingResponse>;
   isFollowing: boolean;
   recentActivities: PageResponse<ActivityResponse>;
   collections: MovieCollectionResponse[];
@@ -228,7 +221,7 @@ export interface ActivityResponse {
 export enum NotificationType {
   COMMENT_LIKE = "COMMENT_LIKE",
   COMMENT_CREATE = "COMMENT_CREATE",
-  COMMENT_REPLY = "COMMENT_REPLY", 
+  COMMENT_REPLY = "COMMENT_REPLY",
   FOLLOW = "FOLLOW",
 }
 
@@ -245,19 +238,19 @@ export interface NotificationResponse {
 }
 
 export interface SearchResultDto {
-    description: any;
-    id: string;
-    title: string;
-    subTitle: string;
-    imageUrl: string | null;
-    type: "MOVIE" | "USER" | "GROUP" | "HASHTAG";
-    metadata?: Record<string, any>;
+  description: any;
+  id: string;
+  title: string;
+  subTitle: string;
+  imageUrl: string | null;
+  type: "MOVIE" | "USER" | "GROUP" | "HASHTAG";
+  metadata?: Record<string, any>;
 }
 
 export interface GlobalSearchResponse {
-    movies: SearchResultDto[];
-    users: SearchResultDto[];
-    topResults: SearchResultDto[];
+  movies: SearchResultDto[];
+  users: SearchResultDto[];
+  topResults: SearchResultDto[];
 }
 
 export interface MovieCollectionRequest {
@@ -286,13 +279,6 @@ export interface TrendingReview {
   moviePosterUrl: string;
   finalLikeCount: number;
   weekEndDate: string;
-  movieId: string;    // Bu eksik olduğu için hata veriyordu
+  movieId: string;
   tmdbId: number;
 }
-
-
-
-
-
-
-

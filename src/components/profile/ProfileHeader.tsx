@@ -36,19 +36,14 @@ export default function ProfileHeader({
             {profile.username}
           </h2>
 
-          {/* {isOwnProfile ? (
-            <button className="bg-gray-800 hover:bg-gray-700 text-white px-6 py-1.5 rounded-lg text-sm font-bold transition-all border border-gray-700">
-              {t("profile.editProfile") || "Edit Profile"}
-            </button>
-          ) : ( */}
           {isOwnProfile ? (
-  <Link 
-    href={`/profile/${profile.username}/edit`}
-    className="bg-gray-800 hover:bg-gray-700 text-white px-6 py-1.5 rounded-lg text-sm font-bold transition-all border border-gray-700 inline-block"
-  >
-    {t("profile.editProfile") || "Edit Profile"}
-  </Link>
-) : (
+            <Link
+              href={`/profile/${profile.username}/edit`}
+              className="bg-gray-800 hover:bg-gray-700 text-white px-6 py-1.5 rounded-lg text-sm font-bold transition-all border border-gray-700 inline-block"
+            >
+              {t("profile.editProfile") || "Edit Profile"}
+            </Link>
+          ) : (
             <button
               onClick={onFollowToggle}
               className={`px-6 py-1.5 rounded-lg text-sm font-bold transition-all cursor-pointer z-10 ${
@@ -64,7 +59,7 @@ export default function ProfileHeader({
           )}
         </div>
 
-        {/* İstatistikler (Instagram Style) */}
+        {/* İstatistikler  */}
         <div className="flex justify-center md:justify-start gap-8 mb-6">
           <div className="text-center cursor-default">
             <span className="block font-bold text-white text-xl">

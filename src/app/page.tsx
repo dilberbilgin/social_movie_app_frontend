@@ -37,12 +37,9 @@ export default function Home() {
   if (loading) return <LoadingSpinner />;
 
   return (
-    // <main className="min-h-screen bg-gray-950 pb-20">
     <main className="min-h-screen bg-gray-950 pb-20 overflow-x-hidden">
       {" "}
-      {/* Sayfa geneli taşmayı engelle */}
-      {/* Hero Banner (Öne Çıkan Tek Bir Film) */}
-      <div className="h-[24vh] md:h-[24vh] relative flex items-center px-4 bg-linear-to-r from-black to-transparent">
+      <div className="h-[24vh] md:h-[24vh] relative flex items-center px-4 bg-linear-to-r from-blue-1300 to-transparent">
         <div className="z-10 max-w-2xl">
           <h1 className="text-3xl font-black text-white mb-1 tracking-tighter">
             {t("home.welcomeTitle")}
@@ -52,7 +49,6 @@ export default function Home() {
           </p>
         </div>
       </div>
-      {/* <div className="space-y-2 -mt-12 relative z-20"> */}
       <div className="relative z-20 -mt-12 grid grid-cols-1 w-full overflow-x-hidden gap-y-8">
         <div className="w-full overflow-hidden px-4">
        <MovieRow title={t("home.trending")} movies={trending} />
@@ -67,20 +63,13 @@ export default function Home() {
       <PopularReviewSection />
     </div>
 
-        {/* Sosyal Akış (Social Feed) Bölümü */}
+        {/* Social Feed */}
         <section className="w-full flex justify-center px-4 pt-0">
           <div className="w-full max-w-md">
             {" "}
-            {/* max-w-4xl yerine doğrudan md yaparak feed boyutuna sabitledik */}
             <SocialFeed />
           </div>
         </section>
-        {/* <section className="px-4">
-           <div className="bg-gray-900/50 p-10 rounded-3xl border border-dashed border-gray-800 text-center">
-              <h3 className="text-gray-500 font-medium">{t('home.socialFeedPlaceholder')}</h3>
-              <p className="text-xs text-gray-700 mt-2 italic">Arkadaşlarının aktiviteleri yakında burada görünecek...</p>
-           </div>
-        </section> */}
       </div>
     </main>
   );

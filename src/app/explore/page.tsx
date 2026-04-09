@@ -26,23 +26,6 @@ export default function ExplorePage() {
 
   const observerTarget = useRef<HTMLDivElement>(null);
 
-  // 1. İlk Yükleme: Kategoriler ve Öne Çıkanlar (Sadece 1 kez çalışır)
-  // useEffect(() => {
-  //   const initExplore = async () => {
-  //     try {
-  //       const [genreRes, suggestedRes] = await Promise.all([
-  //         genreService.getAllGenres(),
-  //         movieService.getTopRatedMovies()
-  //       ]);
-  //       if (genreRes.success) setGenres(genreRes.data);
-  //       if (suggestedRes.success) setSuggestedMovies(suggestedRes.data);
-  //     } catch (err) {
-  //       console.error("Explore init error:", err);
-  //     }
-  //   };
-  //   initExplore();
-  // }, [lang]);
-
   useEffect(() => {
   const initExplore = async () => {
     try {
@@ -50,7 +33,7 @@ export default function ExplorePage() {
       const genreRes = await genreService.getAllGenres();
       if (genreRes.success) setGenres(genreRes.data);
 
-      // 2. KRİTİK DEĞİŞİKLİK: TopRated yerine Suggestions çağırıyoruz
+        // 2. Önerilen filmleri çek
       const suggestedRes = await movieService.getSuggestedMovies(0, 10);
       
       if (suggestedRes.success && suggestedRes.data) {

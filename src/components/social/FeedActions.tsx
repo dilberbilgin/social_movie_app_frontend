@@ -85,27 +85,29 @@ export const FeedActions = ({
         </button>
       </div>
 
-     <div className="flex flex-col text-sm font-semibold text-gray-200">
-  <span>{likeCount.toLocaleString()} {t('feed.likes')}</span>
-  
-  {initialCommentCount > 0 ? (
-    <button 
-      onClick={goToDetails}
-      className="text-gray-500 font-normal text-left mt-1 hover:underline text-xs"
-    >
-      {initialCommentCount === 1 
-        ? t('feed.view_one_comment') 
-        : t('feed.view_all_comments', { count: initialCommentCount })}
-    </button>
-  ) : (
-    <button 
-      onClick={goToDetails}
-      className="text-gray-400 font-normal text-left mt-1 text-xs hover:text-yellow-500/80 transition-colors italic"
-    >
-      {t('feed.be_first_comment')}
-    </button>
-  )}
-</div>
+      <div className="flex flex-col text-sm font-semibold text-gray-200">
+        <span>
+          {likeCount.toLocaleString()} {t("feed.likes")}
+        </span>
+
+        {initialCommentCount > 0 ? (
+          <button
+            onClick={goToDetails}
+            className="text-gray-500 font-normal text-left mt-1 hover:underline text-xs"
+          >
+            {initialCommentCount === 1
+              ? t("feed.view_one_comment")
+              : t("feed.view_all_comments", { count: initialCommentCount })}
+          </button>
+        ) : (
+          <button
+            onClick={goToDetails}
+            className="text-gray-400 font-normal text-left mt-1 text-xs hover:text-yellow-500/80 transition-colors italic"
+          >
+            {t("feed.be_first_comment")}
+          </button>
+        )}
+      </div>
     </div>
   );
 };

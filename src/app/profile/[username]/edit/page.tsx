@@ -6,7 +6,7 @@ import { userService } from "@/services/userService";
 import { UserProfileUpdateRequest, ProfileResponse } from "@/types";
 import { useTranslation } from "@/context/LanguageContext";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
-import { toast } from "react-hot-toast"; // Bildirim için (opsiyonel)
+import { toast } from "react-hot-toast"; 
 
 export default function EditProfilePage() {
   const { username } = useParams();
