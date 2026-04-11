@@ -86,6 +86,7 @@ export interface Movie {
   likeCount: number;
   dislikeCount: number;
   userReaction: boolean | null;
+  contentType: "MOVIE" | "TV";
 }
 
 // 2. Film Oluşturma İsteği (MovieCreateRequest karşılığı)
@@ -123,6 +124,7 @@ export interface RatingRequest {
   movieId: string; // Bizim ürettiğimiz UUID (sanal veya gerçek)
   tmdbId?: number; // EĞER film TMDB'den geliyorsa bu dolu olmalı
   score: number; // 1-10 arası
+  contentType: string;
 }
 
 export interface RatingResponse {

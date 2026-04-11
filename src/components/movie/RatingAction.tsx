@@ -36,15 +36,26 @@ export default function RatingAction({
       // URL'den tmdbId'yi alıyoruz (Eğer sayfa yenilenirse veya direkt linkle gelinirse diye)
       const searchParams = new URLSearchParams(window.location.search);
       const tmdbIdParam = searchParams.get("tmdbId");
+      const contentTypeParam = searchParams.get("contentType") || "MOVIE";
 
       const res = await ratingService.rateMovie({
         movieId: movieId, // Prop'tan gelen ID
         tmdbId: tmdbIdParam ? Number(tmdbIdParam) : undefined,
+        contentType: contentTypeParam,
         score: selectedScore,
       });
 
       if (res.success) {
         setCurrentScore(selectedScore);
+
+        if (movieId === "0" && res.data.movieId) {
+          const currentUrl = new URL(window.location.href);
+          // Pathname: /movies/0 -> /movies/abc-123-uuid
+          const newPathname = window.location.pathname.replace("/movies/0", `/movies/${res.data.movieId}`);
+          
+          // Sayfayı yenilemeden URL'i değiştir
+          window.history.replaceState({}, "", newPathname + currentUrl.search);
+        }
 
         // Başarı durumunda Parent (MovieDetailContent) bileşenindeki istatistikleri güncelle
         if (

@@ -9,6 +9,7 @@ import { useSearchParams } from "next/navigation";
 export const useMovieDetail = (movieId: string) => {
   const searchParams = useSearchParams();
   const tmdbId = searchParams.get("tmdbId"); // URL'den ?tmdbId=... kısmını alır
+const contentType = searchParams.get("contentType") || "MOVIE"; // URL'den tipi al
 
   const [movie, setMovie] = useState<Movie | null>(null);
   const [comments, setComments] =
@@ -27,6 +28,7 @@ export const useMovieDetail = (movieId: string) => {
       const movieRes = await movieService.getMovieDetail(
         movieId,
         tmdbId ? Number(tmdbId) : undefined,
+        contentType
       );
 
       if (movieRes.success) {

@@ -28,16 +28,29 @@ export const movieService = {
     return response.data;
   },
 
-  // Film detayını çeker (Veritabanında yoksa tmdbId ile backend'e haber verir)
-  getMovieDetail: async (
-    id: string,
-    tmdbId?: number,
-  ): Promise<RestResponse<Movie>> => {
-    const response = await api.get<RestResponse<Movie>>(`/movies/${id}`, {
-      params: { tmdbId },
-    });
-    return response.data;
-  },
+  // // Film detayını çeker (Veritabanında yoksa tmdbId ile backend'e haber verir)
+  // getMovieDetail: async (
+  //   id: string,
+  //   tmdbId?: number,
+  // ): Promise<RestResponse<Movie>> => {
+  //   const response = await api.get<RestResponse<Movie>>(`/movies/${id}`, {
+  //     params: { tmdbId },
+  //   });
+  //   return response.data;
+  // },
+
+getMovieDetail: async (
+  id: string | null,
+  tmdbId?: number,
+  contentType: string = "MOVIE" // Parametreyi ekledik
+): Promise<RestResponse<Movie>> => {
+  const response = await api.get<RestResponse<Movie>>(`/movies/${id}`, {
+    params: { tmdbId, contentType }, // Query param olarak gönder
+  });
+  return response.data;
+},
+
+  
 
   getMovieComments: async (
     movieId: string,
@@ -82,16 +95,32 @@ export const movieService = {
     return response.data;
   },
 
-  // Beğenme (Film DB'de yoksa tmdbId sayesinde anında kaydedilir)
+  // // Beğenme (Film DB'de yoksa tmdbId sayesinde anında kaydedilir)
+  // toggleLike: async (
+  //   id: string | null,
+  //   tmdbId?: number,
+  // ): Promise<RestResponse<string>> => {
+  //   const response = await api.post<RestResponse<string>>(
+  //     `/movies/${id}/like`,
+  //     null,
+  //     {
+  //       params: { tmdbId },
+  //     },
+  //   );
+  //   return response.data;
+  // },
+
+  // 3. Beğeni (Like/Dislike) kısımları
   toggleLike: async (
     id: string | null,
     tmdbId?: number,
+    contentType: string = "MOVIE" // Eklendi
   ): Promise<RestResponse<string>> => {
     const response = await api.post<RestResponse<string>>(
       `/movies/${id}/like`,
       null,
       {
-        params: { tmdbId },
+        params: { tmdbId, contentType },
       },
     );
     return response.data;
@@ -111,13 +140,33 @@ export const movieService = {
     return response.data;
   },
 
-  // Hibrit Keşfet (Hem filtreleme hem sayfalama)
+  // // Hibrit Keşfet (Hem filtreleme hem sayfalama)
+  // discoverMovies: async (
+  //   filters?: { genreId?: string },
+  //   page: number = 0,
+  //   size: number = 20,
+  // ): Promise<RestResponse<PageResponse<Movie>>> => {
+  //   const params: any = { page, size };
+  //   if (filters?.genreId) params.genreId = filters.genreId;
+
+  //   const response = await api.get<RestResponse<PageResponse<Movie>>>(
+  //     "/movies/discover",
+  //     { params },
+  //   );
+  //   return response.data;
+  // },
+
+  // 2. Keşfet sayfasında contentType ekledik
   discoverMovies: async (
-    filters?: { genreId?: string },
+    filters?: { genreId?: string, contentType?: string }, // contentType eklendi
     page: number = 0,
     size: number = 20,
   ): Promise<RestResponse<PageResponse<Movie>>> => {
-    const params: any = { page, size };
+    const params: any = { 
+        page, 
+        size, 
+        contentType: filters?.contentType || "MOVIE" 
+    };
     if (filters?.genreId) params.genreId = filters.genreId;
 
     const response = await api.get<RestResponse<PageResponse<Movie>>>(

@@ -47,12 +47,21 @@ export default function SearchModal({ onClose }: { onClose: () => void }) {
 
   const renderItem = (item: SearchResultDto) => {
     const isMovie = item.type === "MOVIE";
+
+    const isMovieOrTv = item.type === "MOVIE";
+    const actualContentType = item.metadata?.contentType || "MOVIE";
+
     const isLocalId = typeof item.id === "string" && item.id.includes("-");
-    const href = isMovie
-      ? isLocalId
-        ? `/movies/${item.id}`
-        : `/movies/0?tmdbId=${item.id}`
-      : `/profile/${item.title}`;
+    // const href = isMovie
+    //   ? isLocalId
+    //     ? `/movies/${item.id}`
+    //     : `/movies/0?tmdbId=${item.id}`
+    //   : `/profile/${item.title}`;
+    const href = isMovieOrTv
+    ? isLocalId
+      ? `/movies/${item.id}?contentType=${actualContentType}` // Localde bile tipi gönderelim
+      : `/movies/0?tmdbId=${item.id}&contentType=${actualContentType}` // TMDB'den gelenler için şart!
+    : `/profile/${item.title}`;
 
     const getImageUrl = () => {
       // Hatalı via.placeholder linklerini ayıkla
