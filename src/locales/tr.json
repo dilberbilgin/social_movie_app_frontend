@@ -61,7 +61,8 @@
     "startExploring": "Filmleri keşfetmeye başla",
     "ratingCount": "toplam puanlama",
     "no_comments": "Henüz yorum yapılmamış. İlk yorumu sen yap!",
-    "write_comment": "Bir yorum yaz..."
+    "write_comment": "Bir yorum yaz...",
+    "watchNow": "Nereden İzlenir?"
   },
   "profile": {
     "myRatings": "Puanladığım Filmler",

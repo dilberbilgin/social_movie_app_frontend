@@ -36,7 +36,7 @@ export default function MovieDetailContent({ id }: { id: string }) {
         onSaveClick={() => setIsCollectionsModalOpen(true)}
       />
       <div className="max-w-6xl mx-auto px-4 mt-12 grid grid-cols-1 lg:grid-cols-3 gap-10 pb-10">
-        <div className="lg:col-span-2 space-y-10">
+        <div className="lg:col-span-2 space-y-10 order-1">
           <section className="bg-gray-800/20 p-6 rounded-2xl border border-gray-800/50">
             <h2 className="text-yellow-500 font-bold mb-4 uppercase text-sm">
               {t("movie.description")}
@@ -53,8 +53,22 @@ export default function MovieDetailContent({ id }: { id: string }) {
             />
           )}
         </div>
-        <aside className="space-y-6">
-          <MovieStats movie={movie} />
+        <aside className="lg:col-span-1 space-y-6 order-2 lg:order-2 ">
+          <div className="lg:sticky lg:top-24 space-y-6">
+      <MovieStats movie={movie} />
+      {user ? (
+        <RatingAction
+          movieId={movie.id}
+          initialScore={movie.userScore}
+          onRatingSuccess={updateLocalMovieStats}
+        />
+      ) : (
+        <div className="text-sm text-gray-500 italic p-6 bg-gray-800/30 rounded-xl border border-dashed border-gray-700 text-center">
+          {t("auth.loginToRate")}
+        </div>
+      )}
+    </div>
+          {/* <MovieStats movie={movie} />
           {user ? (
             <RatingAction
               movieId={movie.id}
@@ -65,7 +79,7 @@ export default function MovieDetailContent({ id }: { id: string }) {
             <div className="text-sm text-gray-500 italic p-6 bg-gray-800/30 rounded-xl border border-dashed border-gray-700 text-center">
               {t("auth.loginToRate")}
             </div>
-          )}
+          )} */}
         </aside>
       </div>
 

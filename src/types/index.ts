@@ -66,6 +66,19 @@ export interface PageResponse<T> {
   totalPages?: number;
 }
 
+export interface WatchProvider {
+  provider_name: string;
+  logo_path: string;
+  display_priority: number;
+  provider_id: string;
+}
+
+export interface MovieWatchProviders {
+  flatrate: WatchProvider[];
+  rent: WatchProvider[];
+  buy: WatchProvider[];
+}
+
 export interface Movie {
   commentCount: number;
   id: string; // UUID
@@ -87,6 +100,7 @@ export interface Movie {
   dislikeCount: number;
   userReaction: boolean | null;
   contentType: "MOVIE" | "TV";
+  watchProviders?: MovieWatchProviders;
 }
 
 // 2. Film Oluşturma İsteği (MovieCreateRequest karşılığı)
