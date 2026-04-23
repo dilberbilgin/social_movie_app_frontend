@@ -48,9 +48,11 @@ export const PopularReviewSection = () => {
             title: review.movieTitle,
             posterUrl: review.moviePosterUrl,
             releaseYear: 2026, // Sayı olarak güncellendi
-            clubRating: 0,
-            likeCount: 0,
-            userReaction: null,
+            clubRating: review.clubRating || 0, // Backend'den gelen puan
+            clubVoteCount: review.clubVoteCount || 0, // Backend'den gelen oy sayısı
+            likeCount: review.movieLikeCount || 0,
+            dislikeCount: review.movieDislikeCount || 0,
+            userReaction: review.userReaction,
             // Eksik alanları 'as Movie' ile bypass ediyoruz veya buraya ekleyebilirsin
           } as Movie;
 

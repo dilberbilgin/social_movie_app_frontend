@@ -297,4 +297,9 @@ export interface TrendingReview {
   weekEndDate: string;
   movieId: string;
   tmdbId: number;
+  clubRating: number;
+  clubVoteCount: number;
+  movieLikeCount: number;    
+  movieDislikeCount: number;   
+  userReaction: boolean | null; 
 }

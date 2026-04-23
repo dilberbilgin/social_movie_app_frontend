@@ -19,10 +19,18 @@ export default function Sidebar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isNotifOpen, setIsNotifOpen] = useState(false);
 
+  const handleHomeClick = (e) => {
+  if (window.location.pathname === '/') {
+    e.preventDefault(); // Sayfayı tekrar yükleme
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+};
+
   const NavLinks = () => (
     <>
       <Link
         href="/"
+        onClick={handleHomeClick}
         className={`flex items-center gap-4 p-3 rounded-lg hover:bg-white/10 ${pathname === "/" ? "text-white font-bold" : "text-gray-400"}`}
       >
         <Home size={24} />{" "}
