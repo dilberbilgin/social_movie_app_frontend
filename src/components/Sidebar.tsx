@@ -19,12 +19,12 @@ export default function Sidebar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isNotifOpen, setIsNotifOpen] = useState(false);
 
-  const handleHomeClick = (e) => {
-  if (window.location.pathname === '/') {
-    e.preventDefault(); // Sayfayı tekrar yükleme
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-};
+  const handleHomeClick = (e: React.MouseEvent) => {
+    if (window.location.pathname === "/") {
+      e.preventDefault(); // Sayfayı tekrar yükleme
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   const NavLinks = () => (
     <>

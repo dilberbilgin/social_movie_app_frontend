@@ -60,7 +60,10 @@ export default function MovieHero({
           <div className="flex items-center gap-3 text-gray-400 font-medium">
             <span className="bg-yellow-500/20 text-yellow-500 px-4 py-1.5 rounded text-md border border-yellow-500/30">
               {movie.releaseYear}
-            </span>
+            </span> 
+            <span className="text-sm md:text-base text-gray-400 uppercase font-bold px-1.5 py-0.5 bg-white/5 rounded border border-white/10">
+    {movie.contentType === "TV" ? "TV Series" : "Movie"}
+  </span>
             {movie.genres && movie.genres.length > 0 && (
               <>
                 <span>•</span>

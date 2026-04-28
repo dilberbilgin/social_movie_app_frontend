@@ -49,16 +49,20 @@ export default function Home() {
           </p>
         </div>
       </div>
+
+          {/* <Trending Movie /> */}
       <div className="relative z-20 -mt-12 grid grid-cols-1 w-full overflow-x-hidden gap-y-8">
         <div className="w-full overflow-hidden px-4">
        <MovieRow title={t("home.trending")} movies={trending} />
     </div>
 
-        {/* <PopularReviewSection /> */}
-
+        {/* <Top Rated Section /> */}
         <div className="w-full overflow-hidden px-4">
        <MovieRow title={t("home.topRated")} movies={topRated} />
     </div>
+
+
+        {/* <PopularReviewSection /> */}
         <div className="w-full max-w-4xl mx-auto px-4">
       <PopularReviewSection />
     </div>

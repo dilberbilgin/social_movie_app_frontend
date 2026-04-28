@@ -42,6 +42,8 @@
     "description": "ÖZET",
     "comments": "Kullanıcı Yorumları",
     "ratings": "Film Puanları",
+    "movieRatings": "Film Puanları",
+    "tvRatings": "Dizi Puanları",
     "addCommentPlaceholder": "Film hakkındaki düşüncelerini yaz...",
     "sendComment": "Yorum Yap",
     "tmdbScore": "TMDB Puanı",

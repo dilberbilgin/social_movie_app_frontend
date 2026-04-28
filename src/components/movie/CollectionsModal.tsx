@@ -17,18 +17,43 @@ export const CollectionsModal = ({
   const [showCreate, setShowCreate] = useState(false);
   const [newName, setNewName] = useState("");
 
+  // const handleCreate = async () => {
+  //   if (!newName) return;
+  //   const res = await movieCollectionService.createCollection({
+  //     name: newName,
+  //     isPublic: true,
+  //   });
+  //   if (res.success) {
+  //     setNewName("");
+  //     setShowCreate(false);
+  //     refresh();
+  //   }
+  // };
+
   const handleCreate = async () => {
-    if (!newName) return;
-    const res = await movieCollectionService.createCollection({
-      name: newName,
-      isPublic: true,
-    });
-    if (res.success) {
-      setNewName("");
-      setShowCreate(false);
-      refresh();
-    }
-  };
+  if (!newName) return;
+  
+  // 1. Önce koleksiyonu oluştur
+  const res = await movieCollectionService.createCollection({
+    name: newName,
+    isPublic: true,
+  });
+
+  if (res.success) {
+    const newCollectionId = res.data.id; // Backend'den dönen yeni ID
+    
+    // 2. OTOMATİK EKLEME: Yeni oluşan koleksiyona filmi ekle
+    await addToCollection(newCollectionId);
+    
+    // 3. Temizlik ve Kapatma
+    setNewName("");
+    setShowCreate(false);
+    
+    // Kullanıcıya işlemin bittiğini hissettirmek için modalı kapatabilirsin
+    // veya listeyi yenileyebilirsin. Genelde otomatik eklemeden sonra modal kapanır.
+    onClose(); 
+  }
+};
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">

@@ -15,9 +15,12 @@ export default function MovieStats({ movie }: MovieStatsProps) {
   return (
     <div className=" bg-gray-800/80 p-6 rounded-xl border border-gray-700 ">
       {/* <div className="bg-gray-800 p-6 rounded-xl border border-gray-700 sticky top-24"> */}
-      <h3 className="text-xl font-bold text-white mb-6 border-b border-gray-700 pb-2">
+      {/* <h3 className="text-xl font-bold text-white mb-6 border-b border-gray-700 pb-2">
         {t("movie.ratings")}
-      </h3>
+      </h3> */}
+      <h3 className="text-xl font-bold text-white mb-6 border-b border-gray-700 pb-2">
+  {movie.contentType === "TV" ? t("movie.tvRatings") : t("movie.movieRatings")}
+</h3>
 
       <div className="space-y-6">
         {/* IMDB Puanı */}

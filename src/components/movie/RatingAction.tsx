@@ -36,37 +36,40 @@ export default function RatingAction({
       // URL'den tmdbId'yi alıyoruz (Eğer sayfa yenilenirse veya direkt linkle gelinirse diye)
       const searchParams = new URLSearchParams(window.location.search);
       const tmdbIdParam = searchParams.get("tmdbId");
-      const contentTypeParam = searchParams.get("contentType") || "MOVIE";
+      //const contentTypeParam = searchParams.get("contentType") || "MOVIE";
+const contentTypeParam = (searchParams.get("contentType") || "MOVIE") as "MOVIE" | "TV";
+      // const tmdbId = tmdbIdParam ? Number(tmdbIdParam) : undefined;
+      
+   //   const tmdbIdValue = tmdbIdParam ? Number(tmdbIdParam) : undefined;
 
       const res = await ratingService.rateMovie({
         movieId: movieId, // Prop'tan gelen ID
         tmdbId: tmdbIdParam ? Number(tmdbIdParam) : undefined,
+        // tmdbId: tmdbIdValue,
         contentType: contentTypeParam,
         score: selectedScore,
+        
       });
 
       if (res.success) {
-        setCurrentScore(selectedScore);
+  setCurrentScore(selectedScore);
+  
+  // 1. Parent bileşeni (Detail sayfasını) güncelle
+  if (res.data.newClubRating !== undefined) {
+    // onRatingSuccess(res.data.newClubRating, res.data.newClubVoteCount );
+    onRatingSuccess(res.data.newClubRating, res.data.newClubVoteCount ?? 0);
+  }
 
-        if (movieId === "0" && res.data.movieId) {
-          const currentUrl = new URL(window.location.href);
-          // Pathname: /movies/0 -> /movies/abc-123-uuid
-          const newPathname = window.location.pathname.replace("/movies/0", `/movies/${res.data.movieId}`);
-          
-          // Sayfayı yenilemeden URL'i değiştir
-          window.history.replaceState({}, "", newPathname + currentUrl.search);
-        }
-
-        // Başarı durumunda Parent (MovieDetailContent) bileşenindeki istatistikleri güncelle
-        if (
-          res.data.newClubRating !== undefined &&
-          res.data.newClubVoteCount !== undefined
-        ) {
-          onRatingSuccess(res.data.newClubRating, res.data.newClubVoteCount);
-        }
-
-        console.log("Rating success:", res.message);
-      }
+  // 2. GLOBAL EVENT FIRLAT (Diğer kartların duyması için)
+  window.dispatchEvent(new CustomEvent('movie-stats-updated', {
+    detail: {
+      movieId: movieId,
+      newRating: res.data.newClubRating,
+      // newCount: res.data.newClubVoteCount
+      newCount: res.data.newClubVoteCount ?? 0
+    }
+  }));
+}
     } catch (err) {
       console.error("Rating error", err);
     } finally {

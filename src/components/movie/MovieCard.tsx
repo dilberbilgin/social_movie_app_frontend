@@ -14,10 +14,25 @@ export default function MovieCard({ movie: initialMovie }: { movie: Movie }) {
   const [imgError, setImgError] = useState(false);
   const [isCollectionsModalOpen, setIsCollectionsModalOpen] = useState(false);
 
+  // useEffect(() => {
+  //   setMovie(initialMovie);
+  //   setImgError(false);
+  // }, [initialMovie]);
+
   useEffect(() => {
-    setMovie(initialMovie);
-    setImgError(false);
-  }, [initialMovie]);
+  const handleGlobalUpdate = (event: any) => {
+    if (event.detail.movieId === movie.id) {
+      setMovie(prev => ({
+        ...prev,
+        clubRating: event.detail.newRating,
+        clubVoteCount: event.detail.newCount
+      }));
+    }
+  };
+
+  window.addEventListener('movie-stats-updated', handleGlobalUpdate);
+  return () => window.removeEventListener('movie-stats-updated', handleGlobalUpdate);
+}, [movie.id]);
 
   const getSafePosterUrl = () => {
     const url = movie.posterUrl;
@@ -50,6 +65,7 @@ export default function MovieCard({ movie: initialMovie }: { movie: Movie }) {
         likeCount:
           prev.userReaction === true ? prev.likeCount - 1 : prev.likeCount + 1,
         userReaction: prev.userReaction === true ? null : true,
+        
       }));
     } catch (err) {
       console.error("Like error:", err);
@@ -87,7 +103,7 @@ export default function MovieCard({ movie: initialMovie }: { movie: Movie }) {
           )}
 
           {/* ALT BİLGİ ŞERİDİ */}
-          <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black via-black/90 to-transparent px-3 py-3 flex justify-between items-center z-20 rounded-b-[14px]">
+          <div className="absolute bottom-0 inset-x-0 bg-linear-to-t from-black via-black/90 to-transparent px-3 py-3 flex justify-between items-center z-20 rounded-b-[14px]">
             <div className="flex items-center gap-1 bg-black/40 px-2 py-1 rounded-full backdrop-blur-md border border-white/5">
               <span className="text-yellow-500 font-bold text-[11px] flex items-center gap-1 leading-none">
                 ⭐ {(movie.clubRating ?? 0).toFixed(1)}
@@ -128,9 +144,17 @@ export default function MovieCard({ movie: initialMovie }: { movie: Movie }) {
           <h3 className="text-sm font-bold text-white truncate group-hover:text-yellow-500 transition-colors">
             {movie.title}
           </h3>
-          <p className="text-[11px] text-gray-500 mt-0.5">
+          <div className="flex items-center gap-2">
+  <span className="text-[10px] text-gray-400 uppercase font-bold px-1.5 py-0.5 bg-white/5 rounded border border-white/10">
+    {movie.contentType === "TV" ? "TV Series" : "Movie"}
+  </span>
+  <p className="text-[11px] text-gray-500 mt-0.5">
+    {movie.releaseYear}
+  </p>
+</div>
+          {/* <p className="text-[11px] text-gray-500 mt-0.5">
             {movie.releaseYear}
-          </p>
+          </p> */}
         </div>
       </Link>
 

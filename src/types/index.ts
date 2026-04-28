@@ -138,7 +138,7 @@ export interface RatingRequest {
   movieId: string; // Bizim ürettiğimiz UUID (sanal veya gerçek)
   tmdbId?: number; // EĞER film TMDB'den geliyorsa bu dolu olmalı
   score: number; // 1-10 arası
-  contentType: string;
+  contentType: "MOVIE" | "TV";
 }
 
 export interface RatingResponse {

@@ -43,6 +43,8 @@
   "movie": {
     "description": "OVERVIEW",
     "ratings": "Movie Ratings",
+    "movieRatings": "Movie Ratings",
+    "tvRatings": "TV Series Ratings",
     "comments": "User Reviews",
     "addCommentPlaceholder": "Write your thoughts about this movie...",
     "sendComment": "Post Comment",
