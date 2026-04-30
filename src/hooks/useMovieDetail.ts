@@ -5,6 +5,7 @@ import { movieService } from "@/services/movieService";
 import { CommentResponse, Movie, PageResponse } from "@/types";
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useRegion } from "@/context/RegionContext";
 
 export const useMovieDetail = (movieId: string) => {
   const searchParams = useSearchParams();
@@ -18,6 +19,7 @@ const contentType = searchParams.get("contentType") || "MOVIE"; // URL'den tipi 
   const [error, setError] = useState<string | null>(null);
 
   const { lang, t } = useTranslation();
+  const { region } = useRegion();
 
   const fetchAllData = useCallback(async () => {
     if (!movieId) return;
@@ -60,7 +62,7 @@ const contentType = searchParams.get("contentType") || "MOVIE"; // URL'den tipi 
     } finally {
       setLoading(false);
     }
-  }, [movieId, tmdbId, lang, t]);
+  }, [movieId, tmdbId, lang, region, t]);
 
   useEffect(() => {
     fetchAllData();

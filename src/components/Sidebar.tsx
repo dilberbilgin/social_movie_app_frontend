@@ -9,6 +9,7 @@ import SearchModal from "./ui/SearchModal";
 import LanguageSelector from "./ui/LanguageSelector";
 import { NotificationPanel } from "./social/NotificationPanel";
 import { useNotifications } from "@/context/NotificationContext";
+import RegionSelector from "./ui/RegionSelector";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -102,13 +103,14 @@ export default function Sidebar() {
           </Link>
         </div>
 
-        <nav className="flex-1 space-y-2">
+        <nav className="flex-1 space-y-2  ">
           <NavLinks />
           <div className="pt-2">
             <LanguageSelector
               dropdownPosition="bottom"
               hideText={isNotifOpen}
             />
+            <RegionSelector hideText={isNotifOpen} />
           </div>
         </nav>
 

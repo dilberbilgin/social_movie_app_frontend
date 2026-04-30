@@ -5,6 +5,8 @@ import { Heart, Skull, Bookmark } from "lucide-react";
 import { movieService } from "@/services/movieService";
 import LanguageSelector from "../ui/LanguageSelector";
 import { useTranslation } from "@/context/LanguageContext";
+import RegionSelector from "../ui/RegionSelector";
+import { useState } from "react";
 
 interface MovieHeroProps {
   movie: Movie;
@@ -12,12 +14,15 @@ interface MovieHeroProps {
   onSaveClick: () => void;
 }
 
+  
+
 export default function MovieHero({
   movie,
   onMovieUpdated,
   onSaveClick,
 }: MovieHeroProps) {
   const { t } = useTranslation();
+  const [isNotifOpen, setIsNotifOpen] = useState(false);
 
   const handleMovieReaction = async (isLike: boolean) => {
     try {
@@ -60,10 +65,10 @@ export default function MovieHero({
           <div className="flex items-center gap-3 text-gray-400 font-medium">
             <span className="bg-yellow-500/20 text-yellow-500 px-4 py-1.5 rounded text-md border border-yellow-500/30">
               {movie.releaseYear}
-            </span> 
+            </span>
             <span className="text-sm md:text-base text-gray-400 uppercase font-bold px-1.5 py-0.5 bg-white/5 rounded border border-white/10">
-    {movie.contentType === "TV" ? "TV Series" : "Movie"}
-  </span>
+              {movie.contentType === "TV" ? "TV Series" : "Movie"}
+            </span>
             {movie.genres && movie.genres.length > 0 && (
               <>
                 <span>•</span>
@@ -73,10 +78,20 @@ export default function MovieHero({
               </>
             )}
           </div>
+          <div className="flex items-center gap-3 text-gray-400 font-medium">
+            <div>
+          <h2 className="text-gray-500 font-bold italic uppercase mb-6  text-sm mt-4">
+            {t("movie.director")}  {movie.director}
+          </h2>
         </div>
+          </div>
+        </div>
+       
 
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 bg-black/20 p-1 rounded-full backdrop-blur-sm border border-white/5">
+        {/* <div className="flex items-center gap-3"> */}
+        <div className="flex flex-col md:flex-row items-center gap-3">
+          {/* <div className="flex items-center gap-2 bg-black/20 p-1 rounded-full backdrop-blur-sm border border-white/5"> */}
+            <div className="flex items-center gap-2 bg-black/20 p-1 rounded-xl backdrop-blur-sm">
             <button
               onClick={() => handleMovieReaction(true)}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-full transition-all active:scale-110 ${
@@ -114,12 +129,15 @@ export default function MovieHero({
             </button>
           </div>
 
+<div className="flex gap-2 w-full md:w-auto">
           <LanguageSelector
             dropdownPosition="top"
             align="right"
             isFullWidth={false}
             showLabel={false}
           />
+          <RegionSelector hideText={isNotifOpen} />
+          </div>
         </div>
       </div>
     </div>

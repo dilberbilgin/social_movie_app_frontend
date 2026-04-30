@@ -80,9 +80,11 @@ export interface MovieWatchProviders {
 }
 
 export interface Movie {
+  overview: string;
   commentCount: number;
   id: string; // UUID
   tmdbId: number;
+  director?: string;
   originalTitle: string;
   releaseYear: number;
   tmdbRating: number;

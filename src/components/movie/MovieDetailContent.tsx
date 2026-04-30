@@ -41,6 +41,8 @@ export default function MovieDetailContent({ id }: { id: string }) {
             <h2 className="text-yellow-500 font-bold mb-4 uppercase text-sm">
               {t("movie.description")}
             </h2>
+               
+
             <p className="text-gray-300 text-lg leading-relaxed">
               {movie.description}
             </p>

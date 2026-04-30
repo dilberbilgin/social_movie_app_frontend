@@ -3,7 +3,8 @@ import Sidebar from "@/components/Sidebar";
 import { AuthProvider } from "@/context/AuthContext";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { NotificationProvider } from "@/context/NotificationContext";
-import { Toaster } from "react-hot-toast"; // Bildirim popupları için
+import { Toaster } from "react-hot-toast"; // Bildirim popupları
+import { RegionProvider } from "@/context/RegionContext";
 
 export default function RootLayout({
   children,
@@ -19,6 +20,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <LanguageProvider>
+          <RegionProvider>
           <AuthProvider>
             <NotificationProvider>
               <Toaster position="top-right" />
@@ -40,6 +42,7 @@ export default function RootLayout({
               <div id="modal-root" />
             </NotificationProvider>
           </AuthProvider>
+          </RegionProvider>
         </LanguageProvider>
       </body>
     </html>
