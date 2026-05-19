@@ -1,0 +1,122 @@
+{
+  "auth": {
+    "loginTitle": "Login to Club",
+    "registerTitle": "Join Us",
+    "username": "Username",
+    "email": "Email Address",
+    "password": "Password",
+    "loginBtn": "Login",
+    "signupBtn": "Create Account",
+    "errorGeneric": "An error occurred. Please try again.",
+    "noAccount": "Don't have an account?",
+    "signupNow": "Sign up now",
+    "alreadyHaveAccount": "Already have an account?",
+    "loginNow": "Login now"
+  },
+  "nav": {
+    "welcome": "BEM-VINDO",
+    "guest": "User",
+    "logout": "Logout",
+    "home": "Home",
+    "movies": "Movies",
+    "profile": "My Profile",
+    "login": "Login",
+    "register": "Register",
+    "explore": "Explore",
+    "searchUserPlaceholder": "Search users...",
+    "noResults": "No users found."
+  },
+  "home": {
+    "welcomeTitle": "BEM-VINDO",
+    "welcomeSubtitle": "The club for movie lovers.",
+    "trending": "Trending Movies",
+    "topRated": "Top Rated Movies",
+    "socialFeedTitle": "Social Feed",
+    "socialFeedPlaceholder": "Social Feed Coming Soon!"
+  },
+  "explore": {
+    "search": "Search Movie",
+    "searchPlaceholder": "Type a movie title...",
+    "category": "Category",
+    "allGenres": "All Genres"
+  },
+  "movie": {
+    "description": "OVERVIEW",
+    "ratings": "Movie Ratings",
+    "movieRatings": "Movie Ratings",
+    "tvRatings": "TV Series Ratings",
+    "comments": "User Reviews",
+    "addCommentPlaceholder": "Write your thoughts about this movie...",
+    "sendComment": "Post Comment",
+    "tmdbScore": "TMDB Score",
+    "clubScore": "Club Score",
+    "votes": "votes",
+    "giveRating": "RATE THIS MOVIE",
+    "rateNow": "Rate Now",
+    "yourRating": "Your Rating",
+    "removeRating": "Remove Rating",
+    "details": "View Details",
+    "detailsBtn": "View Details",
+    "releaseYear": "Release Year",
+    "director": " Directed by",
+    "movie.director": "Director",
+    "yourScore": "Your Score",
+    "noRatingsYet": "No rated movies yet.",
+    "startExploring": "Start exploring movies",
+    "ratingCount": "total ratings",
+    "no_comments": "No comments yet. Be the first to comment!",
+    "write_comment": "Write a comment...",
+    "watchNow": "Where to Watch?"
+  },
+
+  "common": {
+    "loading": "Loading...",
+    "sending": "Sending...",
+    "areYouSure": "Are you sure you want to delete this rating?",
+    "delete": "Delete"
+  },
+  "profile": {
+    "myRatings": "My Rated Movies",
+    "stats": "My Statistics",
+    "movies": "Movies",
+    "followers": "Followers",
+    "following": "Following",
+    "editProfile": "Edit Profile",
+    "noBioYet": "No biography yet.",
+    "recentActivity": "Recent Activity",
+    "follow": "Follow",
+    "unfollow": "Unfollow",
+  "collections": "Collections",
+  "noRecentActivity": "No recent activity yet.",
+  "noCollections": "No collections created yet."
+  },
+  "comment": {
+    "reply": "REPLY",
+    "viewReplies": "View replies",
+    "hideReplies": "Hide replies",
+    "replyingTo": "Replying to"
+  },
+  "activity": {
+  "movie_like": "liked the movie \"{title}\"",
+    "comment_like": "liked the comment \"{title}\"",
+  "movie_rate": "rated \"{title}\"",
+  "comment_create": "commented on \"{title}\"",
+  "follow_user": "started following {title}",
+  "default": "performed an action"
+},
+  "feed": {
+    "likes": "likes",
+    "view_one_comment": "View 1 comment",
+    "view_all_comments": "View all {{count}} comments",
+    "be_first_comment": "Be the first to comment..."
+  },
+  "search": {
+  "title": "Search",
+  "placeholder": "Search movies or users...",
+  "typeToExplore": "Type to explore",
+  "noResults": "No results found.",
+  "exploreTag": "Explore",
+  "movies": "Movies",
+  "users": "Users"
+}
+}

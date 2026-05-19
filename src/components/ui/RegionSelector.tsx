@@ -6,7 +6,9 @@ const regions = [
   { code: "TR", name: "Turkey", flag: "🇹🇷" },
   { code: "US", name: "USA", flag: "🇺🇸" },
   { code: "DE", name: "Germany", flag: "🇩🇪" },
-  { code: "GB", name: "UK", flag: "🇬🇧" },
+  { code: "UK", name: "England", flag: "🇬🇧" },
+  { code: "PT", name: "Portugal", flag: "🇵🇹" },
+  { code: "ES", name: "Spain", flag: "🇪🇸" },
 ];
 
 export default function RegionSelector({ hideText = false }) {

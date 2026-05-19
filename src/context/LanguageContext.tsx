@@ -2,10 +2,11 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import tr from '@/locales/tr.json';
-import en from '@/locales/en.json';
+import en from '@/locales/en.json'; 
+import pt from '@/locales/pt.json'; 
 
 // 1. Sözlükleri bir çatı altında topla
-const translations: Record<string, any> = { tr, en };
+const translations: Record<string, any> = { tr, en, pt };
 
 // 1. Arayüz(ikinci parametre opsiyonel bir obje olsun)
 interface LanguageContextType {
@@ -44,6 +45,7 @@ const t = (path: string, params?: Record<string, any>): string => {
   const changeLanguage = (newLang: string) => {
     setLang(newLang);
     localStorage.setItem('lang', newLang);
+    window.location.reload(); 
   };
 
   return (

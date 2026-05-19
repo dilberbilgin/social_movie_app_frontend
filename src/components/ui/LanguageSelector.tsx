@@ -82,6 +82,15 @@ export default function LanguageSelector({
           >
             EN - English
           </button>
+                    <button
+            onClick={() => {
+              changeLanguage("pt");
+              setIsLangOpen(false);
+            }}
+            className={`w-full p-3 text-left text-xs hover:bg-white/5 transition-colors ${lang === "pt" ? "text-yellow-500 font-bold" : "text-white"}`}
+          >
+            PT - Portuguese
+          </button>
         </div>
       )}
     </div>

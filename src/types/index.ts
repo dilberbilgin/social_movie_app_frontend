@@ -102,6 +102,10 @@ export interface Movie {
   dislikeCount: number;
   userReaction: boolean | null;
   contentType: "MOVIE" | "TV";
+  numberOfSeasons?: number;   
+  numberOfEpisodes?: number;  
+  createdBy?: string[];       
+  status?: string;          
   watchProviders?: MovieWatchProviders;
 }
 
@@ -165,6 +169,10 @@ export interface TmdbGenreDto {
   name: string;
 }
 
+export interface TmdbCreatorDto {
+  name: string;
+}
+
 // Film import etmek için (TMDB Search sonuçları için)
 // TMDB'den gelen ham arama sonuçları için
 export interface TmdbMovieDto {
@@ -172,14 +180,23 @@ export interface TmdbMovieDto {
   // Java'daki JsonProperty isimlerini kullanıyoruz çünkü
   // TMDB'den gelen veri hala ham (alt tireli).
   original_title: string;
+  original_name?: string;     // Diziler için eklendi
+  name?: string;              // Diziler için eklendi
   imdb_id?: string;
   overview: string;
   title: string;
   release_date: string;
+  first_air_date?: string;    // Diziler için eklendi
   poster_path: string;
   vote_average: number;
   genre_ids?: number[];
   genres?: TmdbGenreDto[];
+
+  // Dizi detayları için (Import sırasında lazım olabilir)
+  number_of_seasons?: number;
+  number_of_episodes?: number;
+  created_by?: TmdbCreatorDto[]; 
+  media_type?: "movie" | "tv"; // Arama sonuçlarında tipini belirlemek için
 }
 
 export interface TmdbSearchResponse {
@@ -234,6 +251,7 @@ export interface ActivityResponse {
   likeCount: number;
   commentCount: number;
   userReaction: boolean | null;
+  targetType?: "MOVIE" | "USER" | "COMMENT";
 }
 
 export enum NotificationType {
@@ -286,6 +304,7 @@ export interface MovieCollectionResponse {
   ownerUsername: string;
   coverImageUrl?: string;
   movies: Movie[];
+  createdDate?: string; // Koleksiyonun ne zaman oluşturulduğu bilgisi
 }
 
 export interface TrendingReview {

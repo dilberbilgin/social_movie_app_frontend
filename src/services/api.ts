@@ -60,13 +60,13 @@ api.interceptors.request.use((config) => {
   
   // 1. Dil ve Bölge Yönetimi
   const lang = !isServer ? localStorage.getItem("lang") || "en" : "en";
-  const region = !isServer ? localStorage.getItem("region") || "TR" : "TR";
+  const region = !isServer ? localStorage.getItem("region") || "PT" : "PT";
 
   config.headers["Accept-Language"] = lang;
   config.headers["X-Region"] = region; // Backend bu header'ı kullanarak platformları getirecek
 
   // Query param olarak da dili ekleyelim (Backend'deki Pageable yapıları bazen query param bekler)
-  config.params = { ...config.params, lang };
+  config.params = { ...config.params, lang, region };
 
   // 2. Token Yönetimi
   const token = !isServer ? localStorage.getItem("token") : null;
